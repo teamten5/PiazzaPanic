@@ -104,7 +104,7 @@ public class ScenarioScreen implements Screen {
                 //       System.out.println("The play button was pressed");
 
                 // Switch to GameScreen
-                piazzaPanic.startGame();
+                piazzaPanic.startGame("arcade-salad", 0);
 
                 //}
 

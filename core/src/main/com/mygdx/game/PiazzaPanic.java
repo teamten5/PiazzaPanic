@@ -50,10 +50,19 @@ public class PiazzaPanic extends Game {
 		setScreen(menuScreen);
 	}
 
-	public void startGame()
+	public void startGame(String levelName, int difficulty)
 	{
 		System.out.println("GAME STARTED");
-		gameScreen = new GameScreen(this, ingredientHashMap, interactableTypeHashMap, combinationsHashmap, actionHashmap, levelTypeHashMap.get("arcade-salad").instantiate(0));
+		gameScreen = new GameScreen(
+				this,
+				ingredientHashMap,
+				interactableTypeHashMap,
+				combinationsHashmap,
+				actionHashmap,
+				levelTypeHashMap.get(levelName).instantiate(difficulty)
+		);
+
+
 		setScreen(gameScreen);
 	}
 	public void OptionScreen1(){

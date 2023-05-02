@@ -1,4 +1,5 @@
 package com.mygdx.game.screens;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,16 +19,22 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.PiazzaPanic;
 
 import static java.lang.System.exit;
+import static javax.swing.UIManager.getColor;
 
 public class EndlessScreen implements Screen {
 
-    int level = 1;
+    int difficulty = 1;
     //BUTTONS
     Sprite easyButton;
+    Color easyButtonDefault;
     Sprite mediumButton;
+
+    Color mediumButtonDefault;
     Sprite hardButton;
+    Color hardButtonDefault;
     Sprite startButton;
     Sprite backButton;
+
 
 
     private Stage stage;
@@ -53,6 +60,11 @@ public class EndlessScreen implements Screen {
         hardButton = new Sprite(new Texture("assets/EndlessScreen/HardButton.png"));
         startButton = new Sprite(new Texture("assets/EndlessScreen/StartButton.png"));
         backButton = new Sprite(new Texture("assets/EndlessScreen/BackButton.png"));
+
+        easyButtonDefault = new Sprite(new Texture("assets/EndlessScreen/EasyButton.png")).getColor();getColor(easyButtonDefault);
+        mediumButtonDefault = new Sprite(new Texture("assets/EndlessScreen/MediumButton.png")).getColor();getColor(mediumButtonDefault);
+        hardButtonDefault = new Sprite(new Texture("assets/EndlessScreen/HardButton.png")).getColor();getColor(hardButtonDefault);
+        Color hardButtonDefault = new Sprite(new Texture("assets/EndlessScreen/HardButton.png")).getColor();getColor(hardButtonDefault);
         //Centers
 
         easyButton.setCenter(-300, 0);
@@ -80,7 +92,9 @@ public class EndlessScreen implements Screen {
 
 
 
+
         batch.begin();
+
         easyButton.draw(batch);
         mediumButton.draw(batch);
         hardButton.draw(batch);
@@ -99,44 +113,48 @@ public class EndlessScreen implements Screen {
 
             // Check if mouse pressed
             if (easyButton.getBoundingRectangle().contains(position.x, position.y)) {
-                // Code to be executed when the button is pressed
-                System.out.println("The easy button was pressed");
 
-                level = 1;
+                //LEVEL FOR START
+                difficulty = 0;
 
-                // Switch to Scenario Screen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //BUTTON COLOURS
                 easyButton.setColor(1, 0, 0, 1);
+                mediumButton.setColor(mediumButtonDefault.r, mediumButtonDefault.g, mediumButtonDefault.b, mediumButtonDefault.a);
+                hardButton.setColor(hardButtonDefault.r, hardButtonDefault.g, hardButtonDefault.b, hardButtonDefault.a);
             }
 
             if (mediumButton.getBoundingRectangle().contains(position.x, position.y)) {
-                // Code to be executed when the button is pressed
-                System.out.println("The medium button was pressed");
 
-                // Switch to endless Screen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //LEVEL FOR START
+                difficulty = 1;
+
+                //BUTTON COLOURS
+                mediumButton.setColor(1, 0, 0, 1);
+                easyButton.setColor(easyButtonDefault.r, easyButtonDefault.g, easyButtonDefault.b, easyButtonDefault.a);
+                hardButton.setColor(hardButtonDefault.r, hardButtonDefault.g, hardButtonDefault.b, hardButtonDefault.a);
 
             }
 
             if (hardButton.getBoundingRectangle().contains(position.x, position.y)) {
-                // Code to be executed when the button is pressed
-                System.out.println("The hard button was pressed");
 
-                // Switch to endless Screen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //LEVEL FOR START
+                difficulty = 2;
+
+                //BUTTON COLOURS
+                hardButton.setColor(1, 0, 0, 1);
+                easyButton.setColor(easyButtonDefault.r, easyButtonDefault.g, easyButtonDefault.b, easyButtonDefault.a);
+                mediumButton.setColor(mediumButtonDefault.r, mediumButtonDefault.g, mediumButtonDefault.b, mediumButtonDefault.a);
 
             }
 
             if (startButton.getBoundingRectangle().contains(position.x, position.y)) {
-                // Code to be executed when the button is pressed
-                System.out.println("The start button was pressed");
 
-                // Switch to endless Screen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            piazzaPanic.startGame("arcade-salad", difficulty);// TODO REPLACE WHEN ENDLESS AVAILABLE,
 
             }
 
             if (backButton.getBoundingRectangle().contains(position.x, position.y)) {
-                // Code to be executed when the button is pressed
-                System.out.println("The start button was pressed");
 
-                // Switch to endless Screen!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 piazzaPanic.goToMenu();
             }
 
@@ -164,6 +182,3 @@ public class EndlessScreen implements Screen {
     @Override
     public void dispose () {}
 }
-
-
-
