@@ -11,6 +11,8 @@ import com.mygdx.game.levels.LevelType;
 import com.mygdx.game.screens.EndScreen;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.MenuScreen;
+import com.mygdx.game.screens.OptionScreen;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -23,6 +25,8 @@ public class PiazzaPanic extends Game {
 	GameScreen gameScreen;
 	EndScreen endScreen;
 	MenuScreen menuScreen;
+
+	OptionScreen optionScreen;
 
 	HashMap<String, Ingredient> ingredientHashMap;
 	HashMap<String, InteractableType> interactableTypeHashMap;
@@ -43,6 +47,10 @@ public class PiazzaPanic extends Game {
 		System.out.println("GAME STARTED");
 		gameScreen = new GameScreen(this, ingredientHashMap, interactableTypeHashMap, combinationsHashmap, actionHashmap, levelTypeHashMap.get("arcade-salad").instantiate(0));
 		setScreen(gameScreen);
+	}
+	public void OptionScreen1(){
+		optionScreen = new OptionScreen(this);
+		setScreen(optionScreen);
 	}
 
 	public void endGame(String displayDetails)
