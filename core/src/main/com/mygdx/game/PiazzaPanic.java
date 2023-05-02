@@ -12,7 +12,9 @@ import com.mygdx.game.screens.EndScreen;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.MenuScreen;
 import com.mygdx.game.screens.OptionScreen;
-
+import com.mygdx.game.screens.EndlessScreen;
+import com.mygdx.game.screens.ModeScreen;
+import com.mygdx.game.screens.ScenarioScreen;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +28,11 @@ public class PiazzaPanic extends Game {
 	GameScreen gameScreen;
 	EndScreen endScreen;
 	MenuScreen menuScreen;
+	EndlessScreen endlessScreen;
+
+	ModeScreen modeScreen;
+
+	ScenarioScreen scenarioScreen;
 
 	OptionScreen optionScreen;
 
@@ -52,6 +59,21 @@ public class PiazzaPanic extends Game {
 	public void OptionScreen1(){
 		optionScreen = new OptionScreen(this);
 		setScreen(optionScreen);
+	}
+
+	public void ModeScreen1(){
+		modeScreen = new ModeScreen(this);
+		setScreen(modeScreen);
+	}
+
+	public void ScenarioScreen1(){
+		scenarioScreen = new ScenarioScreen(this);
+		setScreen(scenarioScreen);
+	}
+
+	public void EndlessScreen1(){
+		endlessScreen = new EndlessScreen(this);
+		setScreen(endlessScreen);
 	}
 
 	public void endGame(String displayDetails)

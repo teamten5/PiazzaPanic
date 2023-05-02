@@ -84,8 +84,8 @@ public class MenuScreen implements Screen {
                 // Code to be executed when the button is pressed
                 System.out.println("The play button was pressed");
 
-                // Switch to GameScreen
-                piazzaPanic.startGame();
+                // Switch to Mode Screen
+                piazzaPanic.ModeScreen1();
 
             }
             if (options.getBoundingRectangle().contains(position.x, position.y)) {
