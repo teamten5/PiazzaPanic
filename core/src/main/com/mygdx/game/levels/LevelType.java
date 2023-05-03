@@ -15,6 +15,12 @@ import java.util.HashMap;
 import java.util.List;
 import org.javatuples.Triplet;
 
+
+/**
+Level type contains the preset information for a type of level
+*/
+
+
 public class LevelType {
     final List<InteractableInLevel> interactables;
     final public List<Rectangle> chefValidAreas;

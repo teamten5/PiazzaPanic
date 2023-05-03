@@ -3,6 +3,11 @@ package com.mygdx.game.actors.controllers;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.ValueType;
 
+/**
+The NullController class is a subchild of Controller.
+It is used where no active controller is needed but the component is.
+*/
+
 public class NullController extends Controller {
 
     public boolean doCombination = false;

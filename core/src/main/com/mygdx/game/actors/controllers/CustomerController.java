@@ -4,6 +4,11 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.ValueType;
 import com.mygdx.game.actors.Customer;
 
+/**
+CustomerController controls the customer, 
+it updates its position data.
+   */
+
 public class CustomerController extends Controller {
     Customer controlled;
 

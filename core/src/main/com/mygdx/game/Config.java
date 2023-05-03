@@ -5,6 +5,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+Config contains information about the configuration of the game semantics.
+*/
+
+
 public class Config {
     public static int unitHeightInPixels = 22;
     public static int unitWidthInPixels = 32;
@@ -25,6 +30,10 @@ public class Config {
     // Below should be available in options menu
     //
 
+    public static float volumeMaster = 1;
+    public static float volumeMusic = 1;
+    public static float volumeEffects = 1;
+
     // Keybinds
 
     public static int KBUp = Keys.W;
@@ -37,8 +46,8 @@ public class Config {
     public static int KBSwapChefs = Keys.TAB;
 
     public static int scaling = 3;
-    public static int fpsLimit = 60;
-    public static int resolutionHeight = 480;
+    public static int fpsLimit = 60; // try
+    public static int resolutionHeight = 480; //resolution
     public static int resolutionWidth = 640;
     private Config() {}
 

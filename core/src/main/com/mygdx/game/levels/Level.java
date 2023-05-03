@@ -35,6 +35,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
+/**
+Level class contains the information for an instance of a level
+*/
+
+
 public class Level {
 
     Texture fullReputation;

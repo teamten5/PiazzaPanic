@@ -7,6 +7,12 @@ import com.mygdx.game.levels.Level;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+
+A class representing the player types.
+Each player type has a texture, spawn point, and a name.
+*/
+
 public class PlayerType {
     final Texture texture;
 

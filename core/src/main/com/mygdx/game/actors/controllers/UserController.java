@@ -5,6 +5,14 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.ValueType;
 import com.mygdx.game.Config;
 
+/**
+
+The UserController class handles user inputs.
+It extends the Controller class and implements methods that enable updating the player's position and saving game data.
+The update() method updates the player's x and y position.
+The saveGame() method creates and returns a JsonValue object containing data for saving the game, with controller type.
+*/
+
 public class UserController extends Controller {
 
     private boolean combinationJustDone = false;

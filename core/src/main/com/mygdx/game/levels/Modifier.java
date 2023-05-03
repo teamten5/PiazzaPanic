@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+Modifier loads textures from json
+*/
+
 public class Modifier {
 
     public String name;

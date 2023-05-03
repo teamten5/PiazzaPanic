@@ -3,6 +3,11 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+/**
+Game viewport contains the camera data.
+*/
+
+
 public class GameViewport extends Viewport {
     int scalingX;
     int scalingY;

@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+Difficulty naturally contains the difficulty setting of the level
+*/
+
 public class Difficulty {
     final public String name;
     final public List<Profile> startingProfiles;

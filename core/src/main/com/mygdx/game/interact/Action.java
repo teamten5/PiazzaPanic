@@ -7,6 +7,13 @@ import com.mygdx.game.Ingredient;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+/**
+
+Represents an action that can be performed on object.
+*/
+
+
 public class Action {
     final InteractableType interactableType;
     final Ingredient input;

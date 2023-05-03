@@ -11,6 +11,8 @@ import com.mygdx.game.interact.Combination;
 import com.mygdx.game.interact.InteractableType;
 import com.mygdx.game.levels.Level;
 import com.mygdx.game.levels.LevelType;
+import com.mygdx.game.screens.*;
+
 import com.mygdx.game.levels.Modifier;
 import com.mygdx.game.screens.EndScreen;
 import com.mygdx.game.screens.GameScreen;
@@ -19,14 +21,32 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+PiazzaPanic manages the loads and saves of the game
+*/
+
+
 public class PiazzaPanic extends Game {
 
 	public static Random random = new Random();
+	public PiazzaPanic getGame() {
+		return this;
+	}
+
 
 	// Screens
-	GameScreen gameScreen;
+	public GameScreen gameScreen;
 	EndScreen endScreen;
 	MenuScreen menuScreen;
+	EndlessScreen endlessScreen;
+
+	ModeScreen modeScreen;
+
+	ScenarioScreen scenarioScreen;
+
+	SoundSettingsScreen soundSettings;
+	OptionScreen optionScreen;
+
 
 	HashMap<String, Ingredient> ingredientHashMap;
 	HashMap<String, InteractableType> interactableTypeHashMap;
@@ -38,7 +58,7 @@ public class PiazzaPanic extends Game {
 	JsonReader jsonReader = new JsonReader();
 
 	Level currentLevel;
-	
+
 	@Override
 	public void create () {
 		Gdx.app.setLogLevel(Config.loggingLevel);
@@ -47,12 +67,44 @@ public class PiazzaPanic extends Game {
 		setScreen(menuScreen);
 	}
 
-	public void startGame()
+	public void startGame(String levelName, int difficulty)
 	{
 		System.out.println("GAME STARTED");
-		currentLevel = levelTypeHashMap.get("arcade-salad").instantiate(0);
-		gameScreen = new GameScreen(this, ingredientHashMap, interactableTypeHashMap, combinationsHashmap, actionHashmap, currentLevel);
+		currentLevel = levelTypeHashMap.get(levelName).instantiate(difficulty);
+		gameScreen = new GameScreen(
+				this,
+				ingredientHashMap,
+				interactableTypeHashMap,
+				combinationsHashmap,
+				actionHashmap,
+				currentLevel
+		);
+
+
 		setScreen(gameScreen);
+	}
+	public void OptionScreen1(){
+		optionScreen = new OptionScreen(this);
+		setScreen(optionScreen);
+	}
+
+
+	public void ModeScreen1(){
+		modeScreen = new ModeScreen(this);
+		setScreen(modeScreen);
+	}
+
+	public void ScenarioScreen1(){
+		scenarioScreen = new ScenarioScreen(this);
+		setScreen(scenarioScreen);
+	}
+	public void SoundSettings1(){
+		soundSettings = new SoundSettingsScreen(this);
+		setScreen(soundSettings);
+	}
+	public void EndlessScreen1(){
+		endlessScreen = new EndlessScreen(this);
+		setScreen(endlessScreen);
 	}
 
 	public void endGame(String displayDetails)
@@ -135,3 +187,6 @@ public class PiazzaPanic extends Game {
 		);
 	}
 }
+// keybinds in option menu
+// load menu on main menu
+// pause menu
