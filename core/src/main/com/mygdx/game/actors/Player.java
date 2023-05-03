@@ -11,13 +11,10 @@ import com.mygdx.game.levels.Level;
 import com.mygdx.game.actors.controllers.Controller;
 import org.jetbrains.annotations.VisibleForTesting;
 
-/**
- * 
- * @author Thomas McCarthy
- * 
- * The Player class stores all information regarding a chef, and also handles player movement.
- *
+/** 
+  The Player class stores all information regarding a chef, and also handles player movement.
  */
+
 public class Player {
 
 
