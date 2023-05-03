@@ -1,18 +1,17 @@
 package com.mygdx.game;
+import static com.mygdx.game.actors.Customer.State.ENTERING;
+import static com.mygdx.game.actors.Customer.State.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.badlogic.gdx.backends.headless.mock.audio.MockSound;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.actors.PlayerType;
-import com.mygdx.game.actors.Profile;
-import com.mygdx.game.actors.Spot;
+import com.mygdx.game.actors.*;
 import com.mygdx.game.interact.InteractableInLevel;
 import com.mygdx.game.levels.Difficulty;
 import com.mygdx.game.levels.LevelType;
 import com.mygdx.game.util.TestingController;
 import org.junit.jupiter.api.BeforeEach;
 import com.mygdx.game.levels.Level;
-import com.mygdx.game.actors.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
@@ -39,10 +38,13 @@ import com.mygdx.game.actors.controllers.Controller;
 
 @RunWith(TestingApplicationListener.class)
 
-public class PlayerTypeTest {
+public class DifficultyTest {
     FileHandle handle = Gdx.files.internal("assets");
 
     FileHandle[] files = Gdx.files.internal("./").list();
+    JsonReader jsonReader = new JsonReader();
+    JsonValue jsonRoot = jsonReader.parse(Gdx.files.absolute("testing/data/DiffTest.json"));
+
     TestingController controller1 = new TestingController();
     List<com.badlogic.gdx.math.Rectangle> validArea = new ArrayList<Rectangle>(Arrays.asList(new Rectangle(-10, -10, 100, 100)));
     Texture testchef = new Texture("textures/temp_chef_1.png");
@@ -58,20 +60,24 @@ public class PlayerTypeTest {
             "potato"
     );
     Profile testingprofile = new Profile(testchef, new ArrayList<>(), 1, 1, 1, 1, 1, 1, 1, 1, new Spot(1, 1, 1, 1, "testing"), List.of(new Spot(1, 1, 1, 1, "testing1")), new ArrayList<>(), new MockSound(), "testing");
+    Group testingGroup = new Group(List.of(testingprofile));
+    Customer testingCustomer = new Customer(testingprofile, testingGroup);
     Difficulty testingdiff = new Difficulty("test", List.of(testingprofile), 1, 10, 10, 5, 5);
     Level level = new Level(leveltype, testingdiff);
-    Player player = new Player(testingplayer, controller1, level);
-
-    @BeforeEach
-    public void e(){
+    Spot spotTest = new Spot(1, 1, 1, 1, "testing");
 
 
-    }
+
 
     @Test
-    public void testInstantiate() {
-        float delta = 0.1f; // set the time interval
-        assertEquals(testingplayer.instantiate(controller1,level).type, player.type);
-        assertEquals(testingplayer.instantiate(controller1,level).controller, player.controller);
+    public void testAttributes() {
+        assertTrue(testingdiff.name =="test");
     }
-}
+
+
+
+    @Test
+    public void testLoadFromJson(){
+        new ArrayList<Difficulty>() = Difficulty.loadFromJson()
+    }
+    }
