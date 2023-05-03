@@ -47,19 +47,19 @@ public class EndlessScreen implements Screen {
         this.piazzaPanic = piazzaPanic;
         batch = new SpriteBatch();
         stage = new Stage();
-        skin = new Skin(Gdx.files.internal("assets/gdx-skins-master/gdx-holo/skin/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("gdx-skins-master/gdx-holo/skin/uiskin.json"));
         //Buttons
 
-        easyButton = new Sprite(new Texture("assets/EndlessScreen/EasyButton.png")); //todo put actual texture
-        mediumButton = new Sprite(new Texture("assets/EndlessScreen/MediumButton.png")); //todo put actual texture
-        hardButton = new Sprite(new Texture("assets/EndlessScreen/HardButton.png")); //todo put actual texture
-        playButton = new Sprite(new Texture("assets/EndlessScreen/StartButton.png")); //todo put actual texture
-        backButton = new Sprite(new Texture("assets/EndlessScreen/BackButton.png")); //todo put actual texture
+        easyButton = new Sprite(new Texture("EndlessScreen/EasyButton.png")); //todo put actual texture
+        mediumButton = new Sprite(new Texture("EndlessScreen/MediumButton.png")); //todo put actual texture
+        hardButton = new Sprite(new Texture("EndlessScreen/HardButton.png")); //todo put actual texture
+        playButton = new Sprite(new Texture("EndlessScreen/StartButton.png")); //todo put actual texture
+        backButton = new Sprite(new Texture("EndlessScreen/BackButton.png")); //todo put actual texture
 
         //DEFAULT COLOURS
-        easyButtonDefault = new Sprite(new Texture("assets/EndlessScreen/EasyButton.png")).getColor();getColor(easyButtonDefault);
-        mediumButtonDefault = new Sprite(new Texture("assets/EndlessScreen/MediumButton.png")).getColor();getColor(mediumButtonDefault);
-        hardButtonDefault = new Sprite(new Texture("assets/EndlessScreen/HardButton.png")).getColor();getColor(hardButtonDefault);
+        easyButtonDefault = new Sprite(new Texture("EndlessScreen/EasyButton.png")).getColor();getColor(easyButtonDefault);
+        mediumButtonDefault = new Sprite(new Texture("EndlessScreen/MediumButton.png")).getColor();getColor(mediumButtonDefault);
+        hardButtonDefault = new Sprite(new Texture("EndlessScreen/HardButton.png")).getColor();getColor(hardButtonDefault);
 
         //Centers
 

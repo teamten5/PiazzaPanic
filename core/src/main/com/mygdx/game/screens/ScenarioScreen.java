@@ -57,7 +57,7 @@ public class ScenarioScreen implements Screen {
         this.piazzaPanic = piazzaPanic;
         batch = new SpriteBatch();
         stage = new Stage();
-        skin = new Skin(Gdx.files.internal("assets/gdx-skins-master/gdx-holo/skin/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("gdx-skins-master/gdx-holo/skin/uiskin.json"));
         //Burger Buttons
         burgersButton = new Sprite(new Texture("ScenarioScreen/BurgersButton.png")); //todo put actual texture
         jacketPotatoesButton = new Sprite(new Texture("ScenarioScreen/JacketPotatoesButton.png")); //todo put actual texture

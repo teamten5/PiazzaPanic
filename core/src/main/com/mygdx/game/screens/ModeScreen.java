@@ -39,7 +39,7 @@ public class ModeScreen implements Screen {
         this.piazzaPanic = piazzaPanic;
         batch = new SpriteBatch();
         stage = new Stage();
-        skin = new Skin(Gdx.files.internal("assets/gdx-skins-master/gdx-holo/skin/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("gdx-skins-master/gdx-holo/skin/uiskin.json"));
         //Buttons
         scenarioButton = new Sprite(new Texture("ModeScreen/ScenarioButton.png")); //todo put actual texture
         endlessButton = new Sprite(new Texture("ModeScreen/EndlessButton.png")); //todo put actual texture

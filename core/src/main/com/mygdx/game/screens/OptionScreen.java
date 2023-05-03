@@ -41,13 +41,13 @@ public class OptionScreen implements Screen {
         batch = new SpriteBatch();
         this.game = game;
         stage = new Stage();
-        skin = new Skin(Gdx.files.internal("assets/gdx-skins-master/gdx-holo/skin/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("gdx-skins-master/gdx-holo/skin/uiskin.json"));
         viewport = new ScreenViewport();
 
-        backButton = new Sprite(new Texture("assets/OptionScreen/BackButton.png")); //todo put actual texture
-        //keybindsButton = new Sprite(new Texture("assets/OptionScreen/KeybindButton.png")); //todo put actual texture
+        backButton = new Sprite(new Texture("OptionScreen/BackButton.png")); //todo put actual texture
+        //keybindsButton = new Sprite(new Texture("OptionScreen/KeybindButton.png")); //todo put actual texture
 
-        soundSettingsButton = new Sprite(new Texture("assets/OptionScreen/soundSettingsButton.png")); //todo put actual texture
+        soundSettingsButton = new Sprite(new Texture("OptionScreen/soundSettingsButton.png")); //todo put actual texture
 
         //CENTERS
         backButton.setCenter(100,0); //todo figure out centering for scaling
