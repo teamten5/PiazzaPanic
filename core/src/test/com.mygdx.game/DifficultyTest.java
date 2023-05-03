@@ -78,6 +78,6 @@ public class DifficultyTest {
 
     @Test
     public void testLoadFromJson(){
-        new ArrayList<Difficulty>() = Difficulty.loadFromJson()
+        new ArrayList<Difficulty>() = Difficulty.loadFromJson();
     }
     }
