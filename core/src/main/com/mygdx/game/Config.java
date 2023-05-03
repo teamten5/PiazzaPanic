@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Texture;
 
 public class Config {
     public static int unitHeightInPixels = 22;
@@ -35,7 +36,7 @@ public class Config {
     public static int KBDoCombination = Keys.SHIFT_LEFT;
     public static int KBSwapChefs = Keys.TAB;
 
-    public static int scaling = 2;
+    public static int scaling = 3;
     public static int fpsLimit = 60;
     public static int resolutionHeight = 480;
     public static int resolutionWidth = 640;

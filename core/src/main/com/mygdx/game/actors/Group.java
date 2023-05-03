@@ -3,16 +3,23 @@ package com.mygdx.game.actors;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.ValueType;
+import com.mygdx.game.Ingredient;
 import com.mygdx.game.actors.Customer.State;
+import com.mygdx.game.levels.Level;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Group {
     List<Customer> members = new ArrayList<>();
 
-    boolean active = true;
+    public boolean active = true;
 
-    public Group(List<Profile> memberProfiles) {
+    public Level level;
+
+    public Group(List<Profile> memberProfiles, Level level) {
+        this();
+        this.level = level;
         for (Profile memberProfile: memberProfiles) {
             members.add(new Customer(
                   memberProfile,
@@ -20,6 +27,8 @@ public class Group {
             ));
         }
     }
+
+    private Group() {}
 
     public void update(float delta) {
         if (active) {
@@ -46,9 +55,16 @@ public class Group {
         return true;
     }
 
+    public void angryLeave() {
+        level.loseReputation();
+        for (Customer member: members) {
+            member.setState(State.LEAVING);
+        }
+    }
+
     public void takeOrders() {
         for (Customer member: members) {
-            member.state = State.ORDERING;
+            member.setState(State.ORDERING);
         }
     }
 
@@ -73,5 +89,32 @@ public class Group {
 
 
         return saveData;
+    }
+    public static Group loadGame(
+          JsonValue groupSaveData,
+          JsonValue jsonProfiles,
+          HashMap<String, Ingredient> ingredientHashMap,
+          HashMap<String, Spot> spotHashMap,
+          List<Spot> eatingSpots,
+          Level level
+    ) {
+        Group group = new Group();
+
+        group.level = level;
+
+        group.active = groupSaveData.getBoolean("active");
+
+        for (JsonValue memberSaveData: groupSaveData) {
+            group.members.add(Customer.loadGame(
+                  memberSaveData,
+                  group,
+                  jsonProfiles,
+                  ingredientHashMap,
+                  spotHashMap,
+                  eatingSpots
+            ));
+        }
+
+        return group;
     }
 }
