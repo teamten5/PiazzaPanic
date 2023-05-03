@@ -17,8 +17,8 @@ import com.mygdx.game.PiazzaPanic;
 import static javax.swing.UIManager.getColor;
 
 public class ScenarioScreen implements Screen {
-    String level;
-    int difficulty = 1;
+    String level = null;
+    int difficulty = -1;
     Sprite easyButton;
     Color easyButtonDefault;
     Sprite mediumButton;
@@ -113,6 +113,12 @@ public class ScenarioScreen implements Screen {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             viewport.apply();
             batch.setProjectionMatrix(viewport.getCamera().combined);
+
+            if (difficulty == -1 || level == null) {
+                playButton.setColor(1,0,0,1); //todo change colour
+            } else {
+                playButton.setColor(Color.GREEN);
+            }
 
 
             batch.begin();

@@ -18,7 +18,7 @@ import static javax.swing.UIManager.getColor;
 
 public class EndlessScreen implements Screen {
 
-    int difficulty = 1;
+    int difficulty = -1;
     //BUTTONS
     Sprite easyButton;
     Color easyButtonDefault;
@@ -85,6 +85,17 @@ public class EndlessScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
+
+        // Check if difficulty level has been set
+
+        // Set color of play button based on whether difficulty level has been set
+        if (difficulty == -1) {
+            playButton.setColor(1,0,0,1); //todo change colour
+        } else {
+            playButton.setColor(Color.GREEN);
+        }
+
+
 
 
 
