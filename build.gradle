@@ -19,9 +19,10 @@ plugins {
     id 'checkstyle'
 }
 
+
+
 allprojects {
     apply plugin: "eclipse"
-    
     apply plugin: "jacoco"
 
     version = '1.0'
@@ -48,9 +49,7 @@ allprojects {
 
 project(":desktop") {
     apply plugin: "java-library"
-    
     apply plugin: "jacoco"
-
 
     dependencies {
         implementation project(":core")
@@ -62,9 +61,14 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java-library"
-    
     apply plugin: "jacoco"
+    apply plugin: "checkstyle"
 
+    def checkstyleVersion = '10.4'
+
+    configurations {
+        checkstyleRules
+    }
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -76,6 +80,12 @@ project(":core") {
         //testImplementation('junit:junit:4.13')
         testImplementation('org.mockito:mockito-core:5.2.0')
         testImplementation("com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion")
+        //testImplementation('junit:junit:4.13')
+        testImplementation('org.mockito:mockito-core:5.2.0')
+        testImplementation("com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion")
+        checkstyleRules("com.puppycrawl.tools:checkstyle:${checkstyleVersion}") {
+            transitive = false
+        }
     }
 
     test {
@@ -85,12 +95,19 @@ project(":core") {
         testLogging {
             events "passed", "skipped", "failed"
         }
-        jacocoTestReport {
-            reports {
-                xml.required = false
-                csv.required = false
-                html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
-            }
+    jacocoTestReport {
+        reports {
+            html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
         }
+    }
+    }
+    checkstyle {
+        toolVersion = '10.4'
+        configFile = rootProject.resources.text.fromArchiveEntry(configurations.checkstyleRules, 'google_checks.xml').asFile()
+        configProperties = [
+                'checkstyle.cache.file': "${rootProject.buildDir}/checkstyle/cacheFile"
+        ]
+        showViolations = true
+        //reportsDir = file("${rootProject.buildDir}/checkstyle/checkstyle.xml")
     }
 }
