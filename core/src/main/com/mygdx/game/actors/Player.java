@@ -9,6 +9,7 @@ import com.mygdx.game.Ingredient;
 import com.mygdx.game.interact.Interactable;
 import com.mygdx.game.levels.Level;
 import com.mygdx.game.actors.controllers.Controller;
+import org.jetbrains.annotations.VisibleForTesting;
 
 /**
  * 
@@ -20,14 +21,15 @@ import com.mygdx.game.actors.controllers.Controller;
 public class Player {
 
 
-	private float posX;
-	private float posY;
+	public float posX;
+	public float posY;
 
 	public PlayerType type;
 	// The LinkedList is used as an implementation of a stack
 	public Ingredient carrying;
 
 	public Controller controller;
+	public boolean isPositionValid;
 
 	private Level level;
 
@@ -86,6 +88,8 @@ public class Player {
 			level.swapPlayers(this, controller);
 		}
 	}
+
+
 
 	Boolean isPositionValid(float x, float y) {
 		boolean bl = false, br = false, tl = false, tr = false;

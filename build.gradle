@@ -80,6 +80,9 @@ project(":core") {
         //testImplementation('junit:junit:4.13')
         testImplementation('org.mockito:mockito-core:5.2.0')
         testImplementation("com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion")
+        //testImplementation('junit:junit:4.13')
+        testImplementation('org.mockito:mockito-core:5.2.0')
+        testImplementation("com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion")
         checkstyleRules("com.puppycrawl.tools:checkstyle:${checkstyleVersion}") {
             transitive = false
         }
