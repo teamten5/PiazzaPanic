@@ -11,6 +11,7 @@ import com.mygdx.game.interact.Combination;
 import com.mygdx.game.interact.InteractableType;
 import com.mygdx.game.levels.Level;
 import com.mygdx.game.levels.LevelType;
+import com.mygdx.game.levels.Modifier;
 import com.mygdx.game.screens.EndScreen;
 import com.mygdx.game.screens.GameScreen;
 import com.mygdx.game.screens.MenuScreen;
@@ -32,6 +33,8 @@ public class PiazzaPanic extends Game {
 	HashMap<InteractableType, ArrayList<Combination>> combinationsHashmap;
 	HashMap<InteractableType, HashMap<Ingredient, Action>> actionHashmap;
 	HashMap<String, LevelType> levelTypeHashMap;
+
+	HashMap<String, Modifier> modifierHashMap;
 	JsonReader jsonReader = new JsonReader();
 
 	Level currentLevel;
@@ -92,6 +95,10 @@ public class PiazzaPanic extends Game {
 			ingredientHashMap,
 			interactableTypeHashMap);
 
+
+		modifierHashMap = Modifier.loadFromJson(
+			jsonRoot.get("modifiers")
+		);
 		// profiles only exist at the json root for convenience.
 		// a new Profile is created each time it is used in a level and are therefore generated here.
 		levelTypeHashMap = LevelType.loadFromJson(
@@ -100,7 +107,8 @@ public class PiazzaPanic extends Game {
 			combinationsHashmap,
 			actionHashmap,
 			jsonRoot.get("profiles"),
-			ingredientHashMap
+			ingredientHashMap,
+			modifierHashMap
 		);
 	}
 
@@ -122,6 +130,7 @@ public class PiazzaPanic extends Game {
 			combinationsHashmap,
 			actionHashmap,
 			levelTypeHashMap,
+			modifierHashMap,
 			jsonReader.parse(Gdx.files.internal("data/base.json")).get("profiles")
 		);
 	}

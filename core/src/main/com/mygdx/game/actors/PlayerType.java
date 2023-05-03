@@ -39,7 +39,7 @@ public class PlayerType {
           JsonValue jsonChefs,
           HashMap<String, Spot> spotHashMap
           ) {
-        HashMap<String, PlayerType> chefs = new HashMap<>();
+        HashMap<String, PlayerType> chefs = new HashMap<>();;
         for (JsonValue jsonChef: jsonChefs) {
             chefs.put(jsonChef.name, new PlayerType(
                   new Texture("textures/" + jsonChef.getString("texture")),

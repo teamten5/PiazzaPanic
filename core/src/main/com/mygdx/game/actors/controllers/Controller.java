@@ -12,7 +12,7 @@ public abstract class Controller {
     public boolean doAction = false;
     public boolean doCombination = false;
 
-    public boolean swapChef = false;
+    public boolean swapPlayers = false;
 
     abstract public void update(float delta);
 

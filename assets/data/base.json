@@ -264,11 +264,12 @@
                     "customer-queue3": {"x": 0.2, "y": 5, "facing-x": 0, "facing-y": -1}
                 }
             },
-            "chefs": [
-                {"texture": "temp_chef_1.png", "spawn": "spawn-1"},
-                {"texture": "temp_chef_2.png", "spawn": "spawn-2"},
-                {"texture": "temp_chef_3.png", "spawn": "spawn-3"}
-            ],
+            "chefs": {
+                "one": {"texture": "temp_chef_1.png", "spawn": "spawn-1"},
+                "teo": {"texture": "temp_chef_2.png", "spawn": "spawn-2"},
+                "tre": {"texture": "temp_chef_3.png", "spawn": "spawn-3"}
+            },
+            "possible-modifiers": ["speeeeeed", "slow"],
             "level-difficulties": [
                 {
                     "name": "Easy",
@@ -277,7 +278,7 @@
                     ],
                     "starting-min-group-size": 1,
                     "starting-max-group-size": 2,
-                    "starting-customers": 8,
+                    "starting-customers": 0,
                     "days": 1,
                     "starting-day-length": 20
 
@@ -353,6 +354,16 @@
             "eat-speed": 15,
 
             "neutral-interact-sound": "customer-neutral-interact.mp3"
+        }
+    },
+    "modifiers": {
+        "speeeeeed": {
+            "texture": "modifier-walk-fast.png",
+            "chef-walk-speed-multiplier": 1.2
+        },
+        "slow": {
+            "texture": "modifier-walk-slow.png",
+            "chef-walk-speed-multiplier": 1.2d
         }
     }
 }

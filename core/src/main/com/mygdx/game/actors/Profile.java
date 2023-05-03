@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.ValueType;
 import com.mygdx.game.Ingredient;
+import com.mygdx.game.levels.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class Profile {
     final public Sound soundNeutralInteract;
 
     final public String name;
+
 
     public Profile(Texture texture, List<Ingredient> orders, float walkSpeed,
           float waitForSeatPatience, float pickSpeed, float waitForOrderPatience, float orderSpeed,

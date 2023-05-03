@@ -55,9 +55,6 @@ public class Customer {
     }
 
     public void update(float delta) {
-        if (state != State.ENTERING) {
-            System.out.println(progress);
-        }
         progress += delta;
 
         controller.update(delta);
@@ -69,8 +66,8 @@ public class Customer {
         switch (state) {
 
             case ENTERING:
-                if (profile.waitForSeatPatience < progress) {
-                    group.leave();
+                if (profile.waitForSeatPatience * group.level.customerWaitForSeatMultiplier< progress) {
+                    group.angryLeave();
                 }
                 if (profile.eatingSpots.contains(spot) && posX == spot.posX && posY == spot.posY) {
                     setState(State.PICKING);
@@ -101,30 +98,30 @@ public class Customer {
                 controller.update(delta);
                 posX = posX + controller.x * profile.walkSpeed;
                 posY = posY + controller.y * profile.walkSpeed;
-                facingX = controller.facingX * profile.walkSpeed;
-                facingY = controller.facingY * profile.walkSpeed;
+                facingX = controller.facingX;
+                facingY = controller.facingY;
                 break;
 
             case PICKING:
-                if (progress >= profile.pickSpeed) {
+                if (progress >= profile.pickSpeed * group.level.customerPickSpeedMultiplier) {
                     setState(State.WAITING_FOR_ORDER_TO_BE_TAKEN);
                 }
                 break;
             case WAITING_FOR_ORDER_TO_BE_TAKEN:
-                if (progress >= profile.waitForOrderPatience) {
-                    group.leave();
+                if (progress >= profile.waitForOrderPatience * group.level.customerWaitForOrderTakenMultiplier) {
+                    group.angryLeave();
                 }
                 break;
             case ORDERING:
-                if (progress >= profile.orderSpeed) {
+                if (progress >= profile.orderSpeed * group.level.customerOrderSpeedMultiplier) {
                     setState(State.WAITING_FOR_FOOD);
                     currentOrder += 1;
                 }
                 break;
             case WAITING_FOR_FOOD:
                 System.out.println(profile.orders.get(currentOrder));
-                if (progress >= profile.waitForFoodPatience) {
-                    group.leave();
+                if (progress >= profile.waitForFoodPatience * group.level.customerWaitForFoodMultiplier) {
+                    group.angryLeave();
                 }
                 if (profile.orders.get(currentOrder) == spot.attached_table.currentIngredient) {
                     spot.attached_table.setIngredient(null);
@@ -132,17 +129,17 @@ public class Customer {
                 }
                 break;
             case WAITING_FOR_GROUP_FOOD:
-                if (progress >= profile.waitForGroupFoodPatience) {
-                    group.leave();
+                if (progress >= profile.waitForGroupFoodPatience * group.level.customerWaitForGroupFoodMultiplier) {
+                    group.angryLeave();
                 }
                 if (group.everyoneHasTheFood()) {
                     setState(State.EATING);
                 }
                 break;
             case EATING:
-                if (progress >= profile.eatSpeed) {
-                    if (currentOrder == profile.orders.size() ) {
-                        group.leave();
+                if (progress >= profile.eatSpeed * group.level.customerEatSpeedMultiplier) {
+                    if (currentOrder + 1 == profile.orders.size() ) {
+                        setState(State.LEAVING);
                     } else {
                         setState(State.WAITING_FOR_ORDER_TO_BE_TAKEN);
                     }

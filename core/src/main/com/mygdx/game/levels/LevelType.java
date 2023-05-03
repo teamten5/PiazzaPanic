@@ -10,6 +10,7 @@ import com.mygdx.game.interact.Combination;
 import com.mygdx.game.interact.InteractableInLevel;
 import com.mygdx.game.interact.InteractableType;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import org.javatuples.Triplet;
@@ -31,6 +32,10 @@ public class LevelType {
 
     final public String name;
 
+    public List<Modifier> possibleModifiers;
+
+    public HashMap<String, Modifier> modifierHashMap;
+
     public LevelType(
           List<InteractableInLevel> interactables,
           List<Rectangle> chefValidAreas,
@@ -42,6 +47,8 @@ public class LevelType {
           PlayerType> playerTypes,
           HashMap<String, Spot> spotHashMap,
           List<Spot> eatingSpots,
+          List<Modifier> possibleModifiers,
+          HashMap<String, Modifier> modifierHashMap,
           String name
     ) {
         this.interactables = interactables;
@@ -53,6 +60,8 @@ public class LevelType {
         this.playerTypes = playerTypes;
         this.spotHashMap = spotHashMap;
         this.eatingSpots = eatingSpots;
+        this.possibleModifiers = possibleModifiers;
+        this.modifierHashMap = modifierHashMap;
         this.name = name;
     }
 
@@ -66,7 +75,8 @@ public class LevelType {
           HashMap<InteractableType, ArrayList<Combination>> combinationsHashmap,
           HashMap<InteractableType, HashMap<Ingredient, Action>> actionHashmap,
           JsonValue profilesJson,
-          HashMap<String, Ingredient> ingredientHashMap
+          HashMap<String, Ingredient> ingredientHashMap,
+          HashMap<String, Modifier> modifierHashMap
     ) {
         HashMap<String, LevelType> levelTypeHashMap = new HashMap<>();
         for (JsonValue levelJson: levelsJson) {
@@ -77,7 +87,8 @@ public class LevelType {
                         combinationsHashmap,
                         actionHashmap,
                         profilesJson,
-                        ingredientHashMap
+                        ingredientHashMap,
+                        modifierHashMap
                   ));
         }
         return levelTypeHashMap;
@@ -89,7 +100,8 @@ public class LevelType {
           HashMap<InteractableType, ArrayList<Combination>> combinationsHashmap,
           HashMap<InteractableType, HashMap<Ingredient, Action>> actionHashmap,
           JsonValue profilesJson,
-          HashMap<String, Ingredient> ingredientHashMap
+          HashMap<String, Ingredient> ingredientHashMap,
+          HashMap<String, Modifier> modifierHashMap
     ) {
         JsonValue mapJson = levelJson.get("map");
 
@@ -267,7 +279,7 @@ public class LevelType {
               spotHashMap
         );
 
-
+        List<Modifier> possibleModifiers = Arrays.stream(levelJson.get("possible-modifiers").asStringArray()).map(modifierHashMap::get).toList();
 
         return new LevelType(
               interactables,
@@ -279,6 +291,8 @@ public class LevelType {
               playerTypes,
               spotHashMap,
               eatingSpots,
+              possibleModifiers,
+              modifierHashMap,
               levelJson.name
         );
     }

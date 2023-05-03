@@ -8,10 +8,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Config;
 import com.mygdx.game.GameViewport;
 import com.mygdx.game.Ingredient;
@@ -36,7 +39,12 @@ public class GameScreen extends InputAdapter implements Screen {
 	private final PolygonSpriteBatch batch;
 	private final ShapeRenderer shapeRenderer;
 	OrthographicCamera camera;
+
+	private OrthographicCamera cameraUI;
 	GameViewport viewport;
+
+	private Viewport viewportUI;
+	private SpriteBatch batchUI;
 
 	// A reference to the main game file
 	private final PiazzaPanic main;
@@ -69,6 +77,11 @@ public class GameScreen extends InputAdapter implements Screen {
 		batch = new PolygonSpriteBatch();
 
 		shapeRenderer = new ShapeRenderer();
+
+		cameraUI = new OrthographicCamera(Config.resolutionWidth, Config.resolutionHeight);
+		viewportUI = new ScreenViewport(cameraUI);
+		batchUI = new SpriteBatch();
+		batchUI.setProjectionMatrix(camera.combined);
 	}
 
 	
@@ -100,9 +113,13 @@ public class GameScreen extends InputAdapter implements Screen {
 		batch.begin();
 
 		currentLevel.render(batch);
-
 		// End the process
 		batch.end();
+
+
+		batchUI.begin();
+		currentLevel.renderUI(batchUI);
+		batchUI.end();
 
 		shapeRenderer.setProjectionMatrix(camera.combined);
 		shapeRenderer.begin(ShapeType.Line);
@@ -119,6 +136,10 @@ public class GameScreen extends InputAdapter implements Screen {
 	public void resize(int width, int height) {
 		viewport.update(width, height);
 		batch.setProjectionMatrix(camera.combined);
+
+
+		viewportUI.update(width, height);
+		batchUI.setProjectionMatrix(cameraUI.combined);
 	}
 
 	@Override

@@ -16,7 +16,7 @@ public class UserController extends Controller {
         x = 0;
         doCombination = false;
         doAction = false;
-        swapChef = false;
+        swapPlayers = false;
         boolean up = Gdx.input.isKeyPressed(Config.KBUp);
         boolean down = Gdx.input.isKeyPressed(Config.KBDown);
         boolean left = Gdx.input.isKeyPressed(Config.KBLeft);
@@ -61,7 +61,7 @@ public class UserController extends Controller {
         }
 
         if (Gdx.input.isKeyPressed(Config.KBSwapChefs) && !chefSwapJustDone) {
-            swapChef = true;
+            swapPlayers = true;
             chefSwapJustDone = true;
         } else if (!Gdx.input.isKeyPressed(Config.KBSwapChefs)) {
             chefSwapJustDone = false;
