@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+Ingredient contains the sprites and names of the ingredients
+*/
+
+
 public class Ingredient {
     final public Texture texture;
     final public String _name;
