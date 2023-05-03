@@ -32,9 +32,9 @@ public class MenuScreen implements Screen {
 
         this.piazzaPanic = piazzaPanic;
         batch = new SpriteBatch();
-        playButton = new Sprite(new Texture("MenuScreen/MenuScreenPlay.png"));
-        options = new Sprite(new Texture("MenuScreen/MenuScreenOptions.png"));
-        quit = new Sprite(new Texture("MenuScreen/MenuScreenQuit.png"));
+        playButton = new Sprite(new Texture("MenuScreen/MenuScreenPlay.png")); //todo put actual texture
+        options = new Sprite(new Texture("MenuScreen/MenuScreenOptions.png")); //todo put actual texture
+        quit = new Sprite(new Texture("MenuScreen/MenuScreenQuit.png")); //todo put actual texture
 
 
         playButton.setCenter(0,0);
@@ -49,7 +49,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1); // todo choose colour
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);

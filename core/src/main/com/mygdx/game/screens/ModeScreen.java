@@ -41,8 +41,8 @@ public class ModeScreen implements Screen {
         stage = new Stage();
         skin = new Skin(Gdx.files.internal("assets/gdx-skins-master/gdx-holo/skin/uiskin.json"));
         //Buttons
-        scenarioButton = new Sprite(new Texture("ModeScreen/ScenarioButton.png"));
-        endlessButton = new Sprite(new Texture("ModeScreen/EndlessButton.png"));
+        scenarioButton = new Sprite(new Texture("ModeScreen/ScenarioButton.png")); //todo put actual texture
+        endlessButton = new Sprite(new Texture("ModeScreen/EndlessButton.png")); //todo put actual texture
         //playButton = new Sprite(new Texture("ModeScreen/MenuScreenPlay.png"));
 
         //Centers
@@ -71,7 +71,7 @@ public class ModeScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+        Gdx.gl.glClearColor(0f, 0f, 0f, 1); // todo choose colour
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
