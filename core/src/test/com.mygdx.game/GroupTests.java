@@ -46,6 +46,12 @@ public class GroupTests{
     List<com.badlogic.gdx.math.Rectangle> validArea = new ArrayList<Rectangle>(Arrays.asList(new Rectangle(-10, -10, 100, 100)));
     Texture testchef = new Texture("textures/temp_chef_1.png");
     PlayerType testingplayer = new PlayerType(testchef, new Spot(1, 1, 1, 1, "testing"), "testing");
+
+    HashMap<String, PlayerType> playerTHashmap = new HashMap<>();
+    public HashMap<String, PlayerType> setpthash(){
+        playerTHashmap.put("testingplayetype", testingplayer);
+        return playerTHashmap;
+    }
     LevelType leveltype = new LevelType(
             new ArrayList<>(),
             validArea,
@@ -53,16 +59,21 @@ public class GroupTests{
             10,
             new ArrayList<>(),
             new ArrayList<>(),
-            List.of(testingplayer),
+            setpthash(),
+            new HashMap<>(),
+            new ArrayList<>(),
+            new ArrayList<>(),
+            new HashMap<>(),
             "potato"
     );
 
     Profile testingprofile = new Profile(testchef, new ArrayList<>(), 1, 1, 1, 1, 1, 1, 1, 1, new Spot(1, 1, 1, 1, "testing"), List.of(new Spot(1, 1, 1, 1, "testing1")), new ArrayList<>(), new MockSound(), "testing");
     Profile testingprofile2 = new Profile(testchef, new ArrayList<>(), 1, 1, 1, 1, 1, 1, 1, 1, new Spot(2, 2, 1, 1, "testing"), List.of(new Spot(2, 2, 1, 1, "testing1")), new ArrayList<>(), new MockSound(), "testing");
-    Group testingGroup = new Group(List.of(testingprofile, testingprofile2));
-    Customer testingCustomer = new Customer(testingprofile, testingGroup);
     Difficulty testingdiff = new Difficulty("test", List.of(testingprofile), 1, 10, 10, 5, 5);
     Level level = new Level(leveltype, testingdiff);
+    Group testingGroup = new Group(List.of(testingprofile, testingprofile2), level);
+    Customer testingCustomer = new Customer(testingprofile, testingGroup);
+
     Spot spotTest = new Spot(1, 1, 1, 1, "testing");
 
 
