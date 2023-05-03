@@ -2,11 +2,14 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter.OutputType;
 import com.mygdx.game.interact.Action;
 import com.mygdx.game.interact.Combination;
 import com.mygdx.game.interact.InteractableType;
+import com.mygdx.game.levels.Level;
 import com.mygdx.game.levels.LevelType;
 import com.mygdx.game.screens.EndScreen;
 import com.mygdx.game.screens.GameScreen;
@@ -29,6 +32,9 @@ public class PiazzaPanic extends Game {
 	HashMap<InteractableType, ArrayList<Combination>> combinationsHashmap;
 	HashMap<InteractableType, HashMap<Ingredient, Action>> actionHashmap;
 	HashMap<String, LevelType> levelTypeHashMap;
+	JsonReader jsonReader = new JsonReader();
+
+	Level currentLevel;
 	
 	@Override
 	public void create () {
@@ -41,7 +47,8 @@ public class PiazzaPanic extends Game {
 	public void startGame()
 	{
 		System.out.println("GAME STARTED");
-		gameScreen = new GameScreen(this, ingredientHashMap, interactableTypeHashMap, combinationsHashmap, actionHashmap, levelTypeHashMap.get("arcade-salad").instantiate(0));
+		currentLevel = levelTypeHashMap.get("arcade-salad").instantiate(0);
+		gameScreen = new GameScreen(this, ingredientHashMap, interactableTypeHashMap, combinationsHashmap, actionHashmap, currentLevel);
 		setScreen(gameScreen);
 	}
 
@@ -60,7 +67,7 @@ public class PiazzaPanic extends Game {
 	}
 
 	private void loadJson() {
-		JsonReader jsonReader = new JsonReader();
+
 		JsonValue jsonRoot = jsonReader.parse(Gdx.files.internal("data/base.json"));
 		ingredientHashMap = Ingredient.loadFromJson1(
 			jsonRoot.get("ingredients")
@@ -94,6 +101,28 @@ public class PiazzaPanic extends Game {
 			actionHashmap,
 			jsonRoot.get("profiles"),
 			ingredientHashMap
+		);
+	}
+
+	public void saveGame(int saveSlot) {
+		FileHandle saveFileHandle = Gdx.files.local("save-" + saveSlot);
+
+		JsonValue saveJson = currentLevel.saveGame();
+		String saveData = saveJson.toJson(OutputType.json);
+
+		saveFileHandle.writeString(saveData, false);
+	}
+
+	public Level loadGame(int saveSlot) {
+		JsonValue saveData = jsonReader.parse(Gdx.files.local("save-" + saveSlot));
+		return new Level(
+			saveData,
+			ingredientHashMap,
+			interactableTypeHashMap,
+			combinationsHashmap,
+			actionHashmap,
+			levelTypeHashMap,
+			jsonReader.parse(Gdx.files.internal("data/base.json")).get("profiles")
 		);
 	}
 }

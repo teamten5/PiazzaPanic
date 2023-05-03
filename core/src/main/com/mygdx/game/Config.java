@@ -35,7 +35,7 @@ public class Config {
     public static int KBDoCombination = Keys.SHIFT_LEFT;
     public static int KBSwapChefs = Keys.TAB;
 
-    public static int scaling = 2;
+    public static int scaling = 5;
     public static int fpsLimit = 60;
     public static int resolutionHeight = 480;
     public static int resolutionWidth = 640;

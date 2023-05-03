@@ -24,13 +24,26 @@ public class LevelType {
 
     final public List<Difficulty> difficulties;
 
-    final public List<PlayerType> playerTypes;
+    final public HashMap<String, PlayerType> playerTypes;
+
+    final public HashMap<String, Spot> spotHashMap;
+    final public List<Spot> eatingSpots;
 
     final public String name;
 
-    public LevelType(List<InteractableInLevel> interactables, List<Rectangle> chefValidAreas,
-          int levelSizeX, int levelSizeY, List<InteractableInLevel> customerTables,
-          List<Difficulty> difficulties, List<PlayerType> playerTypes, String name) {
+    public LevelType(
+          List<InteractableInLevel> interactables,
+          List<Rectangle> chefValidAreas,
+          int levelSizeX,
+          int levelSizeY,
+          List<InteractableInLevel> customerTables,
+          List<Difficulty> difficulties,
+          HashMap<String,
+          PlayerType> playerTypes,
+          HashMap<String, Spot> spotHashMap,
+          List<Spot> eatingSpots,
+          String name
+    ) {
         this.interactables = interactables;
         this.chefValidAreas = chefValidAreas;
         this.levelSizeX = levelSizeX;
@@ -38,6 +51,8 @@ public class LevelType {
         this.customerTables = customerTables;
         this.difficulties = difficulties;
         this.playerTypes = playerTypes;
+        this.spotHashMap = spotHashMap;
+        this.eatingSpots = eatingSpots;
         this.name = name;
     }
 
@@ -247,7 +262,7 @@ public class LevelType {
 
         // Chefs
 
-        List<PlayerType> playerTypes = PlayerType.loadFromJson(
+        HashMap<String, PlayerType> playerTypes = PlayerType.loadFromJson(
               levelJson.get("chefs"),
               spotHashMap
         );
@@ -262,6 +277,9 @@ public class LevelType {
               customerTables,
               difficulties,
               playerTypes,
-              levelJson.name);
+              spotHashMap,
+              eatingSpots,
+              levelJson.name
+        );
     }
 }
