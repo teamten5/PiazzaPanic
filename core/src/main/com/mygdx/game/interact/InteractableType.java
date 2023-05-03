@@ -10,6 +10,13 @@ import java.util.HashMap;
 import java.util.List;
 import org.javatuples.Triplet;
 
+/**
+
+InteractableType represents a type of object that can be placed in a game level.
+It stores information about the object's size, texture, collision, and customer seating table.
+*/
+
+
 public class InteractableType {
     final public float xSize; // height in world units
     final public float ySize; // width in world units
