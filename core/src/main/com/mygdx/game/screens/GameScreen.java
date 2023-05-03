@@ -92,7 +92,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
 
 		// Clear the screen and begin drawing process
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(0.7f, .7f, .7f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 

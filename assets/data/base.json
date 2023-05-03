@@ -273,7 +273,7 @@
                 {
                     "name": "Easy",
                     "profiles": [
-                        {"name": "cus2", "spawn": "customer-spawn", "waiting-spots":  ["customer-queue1", "customer-queue2", "customer-queue3"]}
+                        {"name": "cus1", "spawn": "customer-spawn", "waiting-spots":  ["customer-queue1", "customer-queue2", "customer-queue3"]}
                     ],
                     "starting-min-group-size": 1,
                     "starting-max-group-size": 2,
@@ -312,11 +312,11 @@
                 "plated-lettuce"
             ],
             "walk-speed": 1,
-            "wait-for-seat-patience": 15,
-            "pick-speed": 5,
-            "wait-for-order-patience": 10,
-            "order-speed": 0.5,
-            "wait-for-food-patience": 25,
+            "wait-for-seat-patience": 30,
+            "pick-speed": 0,
+            "wait-for-order-patience": 30,
+            "order-speed": 1,
+            "wait-for-food-patience": 30,
             "wait-for-group-patience": 10,
             "eat-speed": 15,
 

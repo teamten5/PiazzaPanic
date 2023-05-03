@@ -52,9 +52,15 @@ public class Group {
         return true;
     }
 
+    public void leave() {
+        for (Customer member: members) {
+            member.setState(State.LEAVING);
+        }
+    }
+
     public void takeOrders() {
         for (Customer member: members) {
-            member.state = State.ORDERING;
+            member.setState(State.ORDERING);
         }
     }
 
