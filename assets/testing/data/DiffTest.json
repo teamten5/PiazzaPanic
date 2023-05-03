@@ -1,0 +1,13 @@
+{"level-difficulties": [
+{
+"name": "Easy",
+"profiles": [
+{"name": "cus2", "spawn": "customer-spawn", "waiting-spots":  ["customer-queue1", "customer-queue2", "customer-queue3"]}
+],
+"starting-min-group-size": 1,
+"starting-max-group-size": 2,
+"starting-customers": 8,
+"days": 1,
+"starting-day-length": 20
+
+}]}

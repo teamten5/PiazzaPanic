@@ -2,6 +2,11 @@ package com.mygdx.game.actors.controllers;
 
 import com.badlogic.gdx.utils.JsonValue;
 
+/**
+Is a controller for an actor. Can be used by the controllers implementations.
+*/
+
+
 public abstract class Controller {
 
     public float x = 0;
@@ -12,7 +17,7 @@ public abstract class Controller {
     public boolean doAction = false;
     public boolean doCombination = false;
 
-    public boolean swapChef = false;
+    public boolean swapPlayers = false;
 
     abstract public void update(float delta);
 

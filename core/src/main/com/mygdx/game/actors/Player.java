@@ -1,6 +1,5 @@
 package com.mygdx.game.actors;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.JsonValue;
@@ -10,25 +9,24 @@ import com.mygdx.game.Ingredient;
 import com.mygdx.game.interact.Interactable;
 import com.mygdx.game.levels.Level;
 import com.mygdx.game.actors.controllers.Controller;
+import org.jetbrains.annotations.VisibleForTesting;
 
-/**
- * 
- * @author Thomas McCarthy
- * 
- * The Player class stores all information regarding a chef, and also handles player movement.
- *
+/** 
+  The Player class stores all information regarding a chef, and also handles player movement.
  */
+
 public class Player {
 
 
-	private float posX;
-	private float posY;
+	public float posX;
+	public float posY;
 
 	public PlayerType type;
 	// The LinkedList is used as an implementation of a stack
 	public Ingredient carrying;
 
 	public Controller controller;
+	public boolean isPositionValid;
 
 	private Level level;
 
@@ -57,8 +55,8 @@ public class Player {
 
 	public void update(float delta) {
 		controller.update(delta);
-		float newx = posX + controller.x;
-		float newy = posY + controller.y;
+		float newx = posX + controller.x * level.chefWalkSpeedMultiplier;
+		float newy = posY + controller.y * level.chefWalkSpeedMultiplier;
 
 		if (isPositionValid(newx, newy)) {
 			posX = newx;
@@ -82,7 +80,13 @@ public class Player {
 				closestStation.doAction(this);
 			}
 		}
+
+		if (controller.swapPlayers) {
+			level.swapPlayers(this, controller);
+		}
 	}
+
+
 
 	Boolean isPositionValid(float x, float y) {
 		boolean bl = false, br = false, tl = false, tr = false;

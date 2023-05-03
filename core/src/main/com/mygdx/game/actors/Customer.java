@@ -1,5 +1,7 @@
 package com.mygdx.game.actors;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.ValueType;
@@ -9,6 +11,11 @@ import com.mygdx.game.actors.controllers.Controller;
 import com.mygdx.game.actors.controllers.CustomerController;
 import java.util.HashMap;
 import java.util.List;
+
+/**
+Current customer state.
+	*/
+
 
 public class Customer {
     public enum State {
@@ -33,6 +40,9 @@ public class Customer {
     public int currentOrder = -1;
     public float progress = 0;
     public State state = State.ENTERING;
+    public static Texture customerBlankOrder;
+    public static Texture customerOrdering;
+    public static Texture customerWaitingToOrder;
 
     public Group group;
 
@@ -43,6 +53,9 @@ public class Customer {
         this.group = group;
 
         spot = profile.spawnLocation;
+        customerBlankOrder = new Texture(Gdx.files.internal("textures/bubble-blank.png"));
+        customerOrdering = new Texture(Gdx.files.internal("textures/bubble-dot-dot-dot.png"));
+        customerWaitingToOrder = new Texture(Gdx.files.internal("textures/bubble-questionmark.png"));
 
     }
 
@@ -58,6 +71,9 @@ public class Customer {
         switch (state) {
 
             case ENTERING:
+                if (profile.waitForSeatPatience * group.level.customerWaitForSeatMultiplier< progress) {
+                    group.angryLeave();
+                }
                 if (profile.eatingSpots.contains(spot) && posX == spot.posX && posY == spot.posY) {
                     setState(State.PICKING);
                 }
@@ -87,30 +103,30 @@ public class Customer {
                 controller.update(delta);
                 posX = posX + controller.x * profile.walkSpeed;
                 posY = posY + controller.y * profile.walkSpeed;
-                facingX = controller.facingX * profile.walkSpeed;
-                facingY = controller.facingY * profile.walkSpeed;
+                facingX = controller.facingX;
+                facingY = controller.facingY;
                 break;
 
             case PICKING:
-                if (progress >= profile.pickSpeed) {
+                if (progress >= profile.pickSpeed * group.level.customerPickSpeedMultiplier) {
                     setState(State.WAITING_FOR_ORDER_TO_BE_TAKEN);
                 }
                 break;
             case WAITING_FOR_ORDER_TO_BE_TAKEN:
-                if (progress >= profile.waitForOrderPatience) {
-                    setState(State.LEAVING);
+                if (progress >= profile.waitForOrderPatience * group.level.customerWaitForOrderTakenMultiplier) {
+                    group.angryLeave();
                 }
                 break;
             case ORDERING:
-                if (progress >= profile.orderSpeed) {
+                if (progress >= profile.orderSpeed * group.level.customerOrderSpeedMultiplier) {
                     setState(State.WAITING_FOR_FOOD);
                     currentOrder += 1;
                 }
                 break;
             case WAITING_FOR_FOOD:
                 System.out.println(profile.orders.get(currentOrder));
-                if (progress >= profile.waitForFoodPatience) {
-                    setState(State.LEAVING);
+                if (progress >= profile.waitForFoodPatience * group.level.customerWaitForFoodMultiplier) {
+                    group.angryLeave();
                 }
                 if (profile.orders.get(currentOrder) == spot.attached_table.currentIngredient) {
                     spot.attached_table.setIngredient(null);
@@ -118,16 +134,16 @@ public class Customer {
                 }
                 break;
             case WAITING_FOR_GROUP_FOOD:
-                if (progress >= profile.waitForGroupFoodPatience) {
-                    setState(State.LEAVING);
+                if (progress >= profile.waitForGroupFoodPatience * group.level.customerWaitForGroupFoodMultiplier) {
+                    group.angryLeave();
                 }
                 if (group.everyoneHasTheFood()) {
                     setState(State.EATING);
                 }
                 break;
             case EATING:
-                if (progress >= profile.eatSpeed) {
-                    if (currentOrder == profile.orders.size() ) {
+                if (progress >= profile.eatSpeed * group.level.customerEatSpeedMultiplier) {
+                    if (currentOrder + 1 == profile.orders.size() ) {
                         setState(State.LEAVING);
                     } else {
                         setState(State.WAITING_FOR_ORDER_TO_BE_TAKEN);
@@ -158,11 +174,50 @@ public class Customer {
     public void render(Batch batch) {
         batch.draw(
               profile.texture,
-              posX,
+              posX + 4f / Config.unitHeightInPixels,
               posY,
               (float) profile.texture.getWidth() / Config.unitWidthInPixels,
               (float) profile.texture.getHeight() / Config.unitHeightInPixels
         );
+
+        switch (state) {
+            case PICKING -> {
+            }
+            case WAITING_FOR_ORDER_TO_BE_TAKEN -> {
+                batch.draw(
+                     customerWaitingToOrder,
+                      posX + 15f / Config.unitHeightInPixels,
+                      posY + 20f / Config.unitHeightInPixels,
+                      (float) customerBlankOrder.getWidth() / Config.unitWidthInPixels,
+                      (float) customerBlankOrder.getHeight() / Config.unitHeightInPixels
+                );
+            }
+            case ORDERING -> {
+                batch.draw(
+                      customerOrdering,
+                      posX + 15f / Config.unitHeightInPixels,
+                      posY + 20f / Config.unitHeightInPixels,
+                      (float) customerBlankOrder.getWidth() / Config.unitWidthInPixels,
+                      (float) customerBlankOrder.getHeight() / Config.unitHeightInPixels
+                );
+            }
+            case WAITING_FOR_FOOD -> {
+                batch.draw(
+                      customerBlankOrder,
+                      posX + 15f / Config.unitHeightInPixels,
+                      posY + 20f / Config.unitHeightInPixels,
+                      (float) customerBlankOrder.getWidth() / Config.unitWidthInPixels,
+                      (float) customerBlankOrder.getHeight() / Config.unitHeightInPixels
+                );
+                batch.draw(
+                      profile.orders.get(currentOrder).texture,
+                      posX + (15f + 7f) / Config.unitHeightInPixels,
+                      posY + (20f + 9f) / Config.unitHeightInPixels,
+                      (float) profile.orders.get(currentOrder).texture.getWidth() / Config.unitWidthInPixels,
+                      (float) profile.orders.get(currentOrder).texture.getHeight() / Config.unitHeightInPixels
+                );
+            }
+        }
     }
 
     public void interactWith(Player player) {

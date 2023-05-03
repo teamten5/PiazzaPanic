@@ -1,5 +1,11 @@
 package com.mygdx.game.player;
 
+
+/**
+Input data contains the input data from the user
+*/
+
+
 public interface Controller {
 
     public InputData handleInput(float delta);

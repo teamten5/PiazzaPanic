@@ -2,6 +2,12 @@ package com.mygdx.game.actors;
 
 import com.mygdx.game.interact.Interactable;
 
+/**
+
+The Spot class represents a spot on the game map where a customer is located. It contains the position and direction of the spot, as well as an optional attached table that the customer can interact with.
+*/
+
+
 public class Spot {
     public float posX;
     public float posY;

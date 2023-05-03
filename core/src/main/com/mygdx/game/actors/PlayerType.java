@@ -7,6 +7,12 @@ import com.mygdx.game.levels.Level;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+
+A class representing the player types.
+Each player type has a texture, spawn point, and a name.
+*/
+
 public class PlayerType {
     final Texture texture;
 
@@ -15,7 +21,7 @@ public class PlayerType {
     public float sizeY;
 
     final Spot spawn;
-    final String name;
+    public final String name;
 
 
     public PlayerType(Texture texture, Spot spawn, String name) {
@@ -39,7 +45,7 @@ public class PlayerType {
           JsonValue jsonChefs,
           HashMap<String, Spot> spotHashMap
           ) {
-        HashMap<String, PlayerType> chefs = new HashMap<>();
+        HashMap<String, PlayerType> chefs = new HashMap<>();;
         for (JsonValue jsonChef: jsonChefs) {
             chefs.put(jsonChef.name, new PlayerType(
                   new Texture("textures/" + jsonChef.getString("texture")),

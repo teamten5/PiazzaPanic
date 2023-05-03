@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+  The Combination class represents a combination of ingredients that can be performed on by a chef at a station.
+ */
+
+
 public class Combination {
     final public InteractableType interactableType;
     final public Ingredient startingChefCarrying;

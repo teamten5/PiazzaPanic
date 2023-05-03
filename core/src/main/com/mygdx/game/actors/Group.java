@@ -1,22 +1,35 @@
 package com.mygdx.game.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.ValueType;
 import com.mygdx.game.Ingredient;
 import com.mygdx.game.actors.Customer.State;
+import com.mygdx.game.levels.Level;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+
+The Group class can represent a group of customers.
+A Group is a collection of multiple Customer instances, alongside respective level instance.
+The Group can update and render its members, keep track of customers food,
+and actions.
+The Group class also has methods to save and load game data.
+*/
+
+
 public class Group {
-    List<Customer> members = new ArrayList<>();
+    public List<Customer> members = new ArrayList<>();
 
-    boolean active = true;
+    public boolean active = true;
 
-    public Group(List<Profile> memberProfiles) {
+    public Level level;
+
+    public Group(List<Profile> memberProfiles, Level level) {
         this();
+        this.level = level;
         for (Profile memberProfile: memberProfiles) {
             members.add(new Customer(
                   memberProfile,
@@ -52,9 +65,16 @@ public class Group {
         return true;
     }
 
+    public void angryLeave() {
+        level.loseReputation();
+        for (Customer member: members) {
+            member.setState(State.LEAVING);
+        }
+    }
+
     public void takeOrders() {
         for (Customer member: members) {
-            member.state = State.ORDERING;
+            member.setState(State.ORDERING);
         }
     }
 
@@ -85,9 +105,12 @@ public class Group {
           JsonValue jsonProfiles,
           HashMap<String, Ingredient> ingredientHashMap,
           HashMap<String, Spot> spotHashMap,
-          List<Spot> eatingSpots
+          List<Spot> eatingSpots,
+          Level level
     ) {
         Group group = new Group();
+
+        group.level = level;
 
         group.active = groupSaveData.getBoolean("active");
 

@@ -7,6 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+A class representing an interactable object in a game level.
+*/
+
+
 public class InteractableInLevel {
     public float xPos;
     public float yPos;

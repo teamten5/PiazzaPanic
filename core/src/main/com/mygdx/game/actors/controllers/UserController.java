@@ -5,6 +5,14 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.ValueType;
 import com.mygdx.game.Config;
 
+/**
+
+The UserController class handles user inputs.
+It extends the Controller class and implements methods that enable updating the player's position and saving game data.
+The update() method updates the player's x and y position.
+The saveGame() method creates and returns a JsonValue object containing data for saving the game, with controller type.
+*/
+
 public class UserController extends Controller {
 
     private boolean combinationJustDone = false;
@@ -16,7 +24,7 @@ public class UserController extends Controller {
         x = 0;
         doCombination = false;
         doAction = false;
-        swapChef = false;
+        swapPlayers = false;
         boolean up = Gdx.input.isKeyPressed(Config.KBUp);
         boolean down = Gdx.input.isKeyPressed(Config.KBDown);
         boolean left = Gdx.input.isKeyPressed(Config.KBLeft);
@@ -61,7 +69,7 @@ public class UserController extends Controller {
         }
 
         if (Gdx.input.isKeyPressed(Config.KBSwapChefs) && !chefSwapJustDone) {
-            swapChef = true;
+            swapPlayers = true;
             chefSwapJustDone = true;
         } else if (!Gdx.input.isKeyPressed(Config.KBSwapChefs)) {
             chefSwapJustDone = false;

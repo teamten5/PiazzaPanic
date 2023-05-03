@@ -9,10 +9,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Config;
 import com.mygdx.game.GameViewport;
 import com.mygdx.game.Ingredient;
@@ -24,8 +27,11 @@ import com.mygdx.game.levels.Level;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
 
+ * The GameScreen class handles the main rendering and updating of the game.
 
+ */
 
 public class GameScreen extends InputAdapter implements Screen {
 	private PiazzaPanic game;
@@ -34,7 +40,12 @@ public class GameScreen extends InputAdapter implements Screen {
 	private final PolygonSpriteBatch batch;
 	private final ShapeRenderer shapeRenderer;
 	OrthographicCamera camera;
+
+	private OrthographicCamera cameraUI;
 	GameViewport viewport;
+
+	private Viewport viewportUI;
+	private SpriteBatch batchUI;
 
 	// A reference to the main game file
 	private final PiazzaPanic main;
@@ -67,6 +78,11 @@ public class GameScreen extends InputAdapter implements Screen {
 		batch = new PolygonSpriteBatch();
 
 		shapeRenderer = new ShapeRenderer();
+
+		cameraUI = new OrthographicCamera(Config.resolutionWidth, Config.resolutionHeight);
+		viewportUI = new ScreenViewport(cameraUI);
+		batchUI = new SpriteBatch();
+		batchUI.setProjectionMatrix(camera.combined);
 	}
 
 
@@ -91,17 +107,23 @@ public class GameScreen extends InputAdapter implements Screen {
 		currentLevel.update(delta);
 
 
+
 		// Clear the screen and begin drawing process
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(0.7f, .7f, .7f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+
 
 
 		batch.begin();
 
 		currentLevel.render(batch);
-
 		// End the process
 		batch.end();
+
+
+		batchUI.begin();
+		currentLevel.renderUI(batchUI);
+		batchUI.end();
 
 		shapeRenderer.setProjectionMatrix(camera.combined);
 		shapeRenderer.begin(ShapeType.Line);
@@ -123,6 +145,10 @@ public class GameScreen extends InputAdapter implements Screen {
 	public void resize(int width, int height) {
 		viewport.update(width, height);
 		batch.setProjectionMatrix(camera.combined);
+
+
+		viewportUI.update(width, height);
+		batchUI.setProjectionMatrix(cameraUI.combined);
 	}
 
 	@Override

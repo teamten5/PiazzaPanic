@@ -14,6 +14,11 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.PiazzaPanic;
 
+/**
+End screen contains the layout for the end of game screen
+*/
+
+
 public class EndScreen extends InputAdapter implements Screen {
 
     Stage stage;
