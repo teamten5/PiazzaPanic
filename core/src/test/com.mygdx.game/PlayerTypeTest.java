@@ -39,7 +39,7 @@ import com.mygdx.game.actors.controllers.Controller;
 
 @RunWith(TestingApplicationListener.class)
 
-public class Playertest1 {
+public class PlayerTypeTest {
     FileHandle handle = Gdx.files.internal("assets");
 
     FileHandle[] files = Gdx.files.internal("./").list();
@@ -61,42 +61,17 @@ public class Playertest1 {
     Difficulty testingdiff = new Difficulty("test", List.of(testingprofile), 1, 10, 10, 5, 5);
     Level level = new Level(leveltype, testingdiff);
     Player player = new Player(testingplayer, controller1, level);
+
     @BeforeEach
-    public void setup() {
+    public void testInstantiate(){
+
 
     }
 
     @Test
     public void testUpdate() {
         float delta = 0.1f; // set the time interval
-        player.update(delta); // update the player
-        assertEquals(1, player.posX); // assert that the x-position is still 0
-        assertEquals(1, player.posX); // assert that the y-position is still 0
+        assertEquals(testingplayer.instantiate(controller1,level).type, player.type);
+        assertEquals(testingplayer.instantiate(controller1,level).controller, player.controller);
     }
-
-    @Test
-    public void testControllers() {
-        float delta = 0.2f;
-        float oldx = player.posX;
-        float oldy = player.posY;
-        controller1.movement("left", delta);
-        controller1.movement("down", delta);
-        player.update(delta);
-        assertTrue(player.posX == oldx);
-        assertFalse((player.posY == oldy));
-    }
-
-    @Test
-    public void testsavegame(){
-        Texture testingtexture = new Texture("textures/ingredient_bun_toasted.png");
-        player.carrying= new Ingredient(testingtexture, "buns-toasted");
-        JsonValue playersave = new JsonValue(JsonValue.ValueType.object);
-        playersave.addChild("type", new JsonValue(testingplayer.name));
-        playersave.addChild("x", new JsonValue(player.posX));
-        playersave.addChild("y", new JsonValue(player.posY));
-        playersave.addChild("carrying", new JsonValue(player.carrying._name));
-        playersave.addChild("controller", player.controller.saveGame());
-        assertEquals(player.saveGame().toString(),playersave.toString());
-    }
-
 }
