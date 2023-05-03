@@ -1,4 +1,4 @@
-package com.mygdx.game;
+/**package com.mygdx.game;
 import static com.mygdx.game.actors.Customer.State.ENTERING;
 import static com.mygdx.game.actors.Customer.State.*;
 import static org.junit.jupiter.api.Assertions.*;
