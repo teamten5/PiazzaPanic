@@ -73,6 +73,7 @@ public class DifficultyTest {
     public void testAttributes() {
         assertTrue(testingdiff.name =="test");
     }
+    */
 
 
 
