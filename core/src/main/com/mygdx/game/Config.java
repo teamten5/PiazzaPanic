@@ -5,6 +5,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+Config contains information about the configuration of the game semantics.
+*/
+
+
 public class Config {
     public static int unitHeightInPixels = 22;
     public static int unitWidthInPixels = 32;
