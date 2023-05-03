@@ -19,6 +19,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+PiazzaPanic manages the loads and saves of the game
+*/
+
+
 public class PiazzaPanic extends Game {
 
 	public static Random random = new Random();
