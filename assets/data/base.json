@@ -264,20 +264,21 @@
                     "customer-queue3": {"x": 0.2, "y": 5, "facing-x": 0, "facing-y": -1}
                 }
             },
-            "chefs": [
-                {"texture": "temp_chef_1.png", "spawn": "spawn-1"},
-                {"texture": "temp_chef_2.png", "spawn": "spawn-2"},
-                {"texture": "temp_chef_3.png", "spawn": "spawn-3"}
-            ],
+            "chefs": {
+                "one": {"texture": "temp_chef_1.png", "spawn": "spawn-1"},
+                "teo": {"texture": "temp_chef_2.png", "spawn": "spawn-2"},
+                "tre": {"texture": "temp_chef_3.png", "spawn": "spawn-3"}
+            },
+            "possible-modifiers": ["speeeeeed", "slow"],
             "level-difficulties": [
                 {
                     "name": "Easy",
                     "profiles": [
-                        {"name": "cus2", "spawn": "customer-spawn", "waiting-spots":  ["customer-queue1", "customer-queue2", "customer-queue3"]}
+                        {"name": "cus1", "spawn": "customer-spawn", "waiting-spots":  ["customer-queue1", "customer-queue2", "customer-queue3"]}
                     ],
                     "starting-min-group-size": 1,
                     "starting-max-group-size": 2,
-                    "starting-customers": 8,
+                    "starting-customers": 0,
                     "days": 1,
                     "starting-day-length": 20
 
@@ -312,11 +313,11 @@
                 "plated-lettuce"
             ],
             "walk-speed": 1,
-            "wait-for-seat-patience": 15,
-            "pick-speed": 5,
-            "wait-for-order-patience": 10,
-            "order-speed": 0.5,
-            "wait-for-food-patience": 25,
+            "wait-for-seat-patience": 30,
+            "pick-speed": 0,
+            "wait-for-order-patience": 30,
+            "order-speed": 1,
+            "wait-for-food-patience": 30,
             "wait-for-group-patience": 10,
             "eat-speed": 15,
 
@@ -353,6 +354,16 @@
             "eat-speed": 15,
 
             "neutral-interact-sound": "customer-neutral-interact.mp3"
+        }
+    },
+    "modifiers": {
+        "speeeeeed": {
+            "texture": "modifier-walk-fast.png",
+            "chef-walk-speed-multiplier": 1.2
+        },
+        "slow": {
+            "texture": "modifier-walk-slow.png",
+            "chef-walk-speed-multiplier": 1.2d
         }
     }
 }

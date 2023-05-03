@@ -12,9 +12,23 @@ public abstract class Controller {
     public boolean doAction = false;
     public boolean doCombination = false;
 
-    public boolean swapChef = false;
+    public boolean swapPlayers = false;
 
     abstract public void update(float delta);
 
     abstract public JsonValue saveGame();
+
+    public static Controller loadGame(JsonValue controllerSaveData) {
+        return switch (controllerSaveData.getString("type")) {
+            case "null" -> new NullController(
+                  controllerSaveData.getFloat("x"),
+                  controllerSaveData.getFloat("y"),
+                  controllerSaveData.getFloat("facing-x"),
+                  controllerSaveData.getFloat("facing-y"),
+                  controllerSaveData.getBoolean("doAction")
+            );
+            case "user" -> new UserController();
+            default -> null;
+        };
+    }
 }

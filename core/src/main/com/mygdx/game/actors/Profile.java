@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.ValueType;
 import com.mygdx.game.Ingredient;
+import com.mygdx.game.levels.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class Profile {
     final public Sound soundNeutralInteract;
 
     final public String name;
+
 
     public Profile(Texture texture, List<Ingredient> orders, float walkSpeed,
           float waitForSeatPatience, float pickSpeed, float waitForOrderPatience, float orderSpeed,
@@ -73,7 +75,7 @@ public class Profile {
               '}';
     }
 
-    public static List<Profile> loadfromJson(
+    public static List<Profile> loadFromJson(
           JsonValue jsonProfiles,
           JsonValue jsonLevelProfiles,
           HashMap<String, Ingredient> ingredientHashMap,
@@ -83,42 +85,58 @@ public class Profile {
         ArrayList<Profile> profiles = new ArrayList<>();
 
         for (JsonValue jsonLevelProfile: jsonLevelProfiles) {
-
-            JsonValue jsonProfile = jsonProfiles.get(jsonLevelProfile.getString("name"));
-            List<Ingredient> orders = new ArrayList<>();
-            for (String orderName: jsonProfile.get("orders").asStringArray()) {
-                orders.add(ingredientHashMap.get(orderName));
-            }
-            Profile profile = new Profile(
-
-                  new Texture("textures/" + jsonProfile.getString("texture")),
-                  orders,
-                  jsonProfile.getFloat("walk-speed"),
-                  jsonProfile.getFloat("wait-for-seat-patience"),
-                  jsonProfile.getFloat("pick-speed"),
-                  jsonProfile.getFloat("wait-for-order-patience"),
-                  jsonProfile.getFloat("order-speed"),
-                  jsonProfile.getFloat("wait-for-food-patience"),
-                  jsonProfile.getFloat("wait-for-group-patience"),
-                  jsonProfile.getFloat("eat-speed"),
-                  spotHashMap.get(jsonLevelProfile.getString("spawn")),
-                  Arrays.stream(jsonLevelProfile.get("waiting-spots").asStringArray()).map(spotHashMap::get).toList(),
-                  eatingSpots,
-                  Gdx.audio.newSound(Gdx.files.internal("sounds/"+
-                        jsonProfile.getString("neutral-interact-sound"))),
-                  jsonProfile.name);
+            Profile profile = loadOneFromJson(
+                  jsonProfiles,
+                  jsonLevelProfile,
+                  ingredientHashMap,
+                  spotHashMap,
+                  eatingSpots
+            );
             profiles.add(profile);
             Gdx.app.debug("JSON/Profile", "Created Profile" + profile);
         }
 
-        return  profiles;
+        return profiles;
     }
 
+    public static Profile loadOneFromJson(
+          JsonValue jsonProfiles,
+          JsonValue jsonLevelProfile,
+          HashMap<String, Ingredient> ingredientHashMap,
+          HashMap<String, Spot> spotHashMap,
+          List<Spot> eatingSpots
+    ) {
+        JsonValue jsonProfile = jsonProfiles.get(jsonLevelProfile.getString("name"));
+        List<Ingredient> orders = new ArrayList<>();
+        for (String orderName: jsonProfile.get("orders").asStringArray()) {
+            orders.add(ingredientHashMap.get(orderName));
+        }
+        Profile profile = new Profile(
+
+              new Texture("textures/" + jsonProfile.getString("texture")),
+              orders,
+              jsonProfile.getFloat("walk-speed"),
+              jsonProfile.getFloat("wait-for-seat-patience"),
+              jsonProfile.getFloat("pick-speed"),
+              jsonProfile.getFloat("wait-for-order-patience"),
+              jsonProfile.getFloat("order-speed"),
+              jsonProfile.getFloat("wait-for-food-patience"),
+              jsonProfile.getFloat("wait-for-group-patience"),
+              jsonProfile.getFloat("eat-speed"),
+              spotHashMap.get(jsonLevelProfile.getString("spawn")),
+              Arrays.stream(jsonLevelProfile.get("waiting-spots").asStringArray()).map(spotHashMap::get).toList(),
+              eatingSpots,
+              Gdx.audio.newSound(Gdx.files.internal("sounds/"+
+                    jsonProfile.getString("neutral-interact-sound"))),
+              jsonProfile.name);
+        Gdx.app.debug("JSON/Profile", "Created Profile" + profile);
+        return profile;
+    }
 
     public JsonValue saveGame() {
         JsonValue saveData = new JsonValue(ValueType.object);
 
-        saveData.addChild("type", new JsonValue(name));
+        saveData.addChild("name", new JsonValue(name));
         saveData.addChild("spawn", new JsonValue(spawnLocation.name));
         JsonValue waitingSpotSaveData = new JsonValue(ValueType.array);
         for (Spot waitingSpot: waitingSpots) {
@@ -128,6 +146,22 @@ public class Profile {
 
 
         return saveData;
+    }
+
+    public static Profile loadGame(
+          JsonValue jsonProfiles,
+          JsonValue profilesSaveData,
+          HashMap<String, Ingredient> ingredientHashMap,
+          HashMap<String, Spot> spotHashMap,
+          List<Spot> eatingSpots
+    ) {
+        return loadOneFromJson(
+              jsonProfiles,
+              profilesSaveData,
+              ingredientHashMap,
+              spotHashMap,
+              eatingSpots
+        );
     }
 
 }

@@ -38,7 +38,7 @@ public class Difficulty {
     ) {
         ArrayList<Difficulty> difficulties = new ArrayList<>();
         for (JsonValue jsonDifficulty: jsonDifficulties) {
-            List<Profile> levelProfiles = Profile.loadfromJson(
+            List<Profile> levelProfiles = Profile.loadFromJson(
                   jsonProfiles,
                   jsonDifficulty.get("profiles"),
                   ingredientHashMap,
