@@ -12,6 +12,11 @@ import com.mygdx.game.actors.controllers.CustomerController;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+Current customer state.
+	*/
+
+
 public class Customer {
     public enum State {
         ENTERING,
