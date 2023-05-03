@@ -18,6 +18,11 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.PiazzaPanic;
 
+/**
+Menu screen links the screens together through buttons.
+*/
+
+
 public class MenuScreen extends InputAdapter implements Screen {
 
     Stage stage;
