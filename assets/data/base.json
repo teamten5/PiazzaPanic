@@ -73,7 +73,57 @@
         "plated-lettuce-tomato":  {"texture": "plated-lettuce-tomato.png", "modifiers":  {"place-on":  ["counter"]}},
         "plated-lettuce-onion":  {"texture": "plated-lettuce-onion.png", "modifiers":  {"place-on":  ["counter"]}},
         "plated-tomato-onion":  {"texture": "plated-tomato-onion.png", "modifiers":  {"place-on":  ["counter"]}},
-        "plated-lettuce-tomato-onion":  {"texture": "meal-salad.png", "modifiers":  {"place-on":  ["counter"]}}
+        "plated-lettuce-tomato-onion":  {"texture": "meal-salad.png", "modifiers":  {"place-on":  ["counter"]}},
+
+
+
+
+
+
+        "bun": {"texture": "ingredient-bun.png", "modifiers": {"place-on": ["counter"]}, "plated": "plated-bun"},
+        "burger-cheese": {"texture": "ingredient-burger-cheese.png", "modifiers": {"place-on": ["counter"], "plated": "plated-cheese-burger"}},
+        "burger-pepper": {"texture": "ingredient-burger-pepper.png", "modifiers": {"place-on": ["counter"], "plated": "plated-pepper-burger"}},
+        "burger": {"texture": "ingredient-burger.png", "modifiers": {"place-on": ["counter"], "plated": "plated-burger"}},
+        "cheese-cut": {"texture": "ingredient-cheese-cut.png", "modifiers": {"place-on": ["counter"]}, "plated": "plated-cheese"},
+        "cheese-tomato": {"texture": "ingredient-cheese-tomato.png", "modifiers": {"place-on": ["counter"]}},
+        "cheese-whole": {"texture": "ingredient-cheese-whole.png", "modifiers": {"place-on": ["counter", "cutting-station"]}},
+        "dough-cut": {"texture": "ingredient-dough-cut.png", "modifiers": {"place-on": ["counter"]}},
+        "dough-whole": {"texture": "ingredient-dough-whole.png", "modifiers": {"place-on": ["counter", "cutting-station"]}},
+        "patty-cooked": {"texture": "ingredient-patty-cooked.png", "modifiers": {"place-on": ["counter"], "plated": "plated-patty"},
+        "patty-raw": {"texture": "ingredient-patty-raw.png", "modifiers": {"place-on": ["counter"]}},
+        "pepper-cut": {"texture": "ingredient-pepper-cut.png", "modifiers": {"place-on": ["counter"]}, "plated": "plated-pepper"},
+        "pepper-whole": {"texture": "ingredient-pepper-whole.png", "modifiers": {"place-on": ["counter", "cutting-station"]}},
+        "pizza-cheese-pepper-tomato-cooked": {"texture": "ingredient-pizza-cheese-pepper-tomato-cooked.png", "modifiers": {"place-on": ["counter"], "plated": "plated-pizza-cheese-pepper-tomato"}},
+        "pizza-cheese-pepper-tomato-raw": {"texture": "ingredient-pizza-cheese-pepper-tomato-raw.png", "modifiers": {"place-on": ["counter"]}},
+        "pizza-cheese-tomato-cooked": {"texture": "ingredient-pizza-cheese-tomato-cooked.png", "modifiers": {"place-on": ["counter"], "plated": "plated-cheese-tomato-pizza"}},
+        "pizza-cheese-tomato-raw": {"texture": "ingredient-pizza-cheese-tomato-raw.png", "modifiers": {"place-on": ["counter"]}},
+        "pizza-tomato-cooked": {"texture": "ingredient-pizza-tomato-cooked.png", "modifiers": {"place-on": ["counter"], "plated": "plated-tomato-pizza"}},
+        "pizza-tomato-raw": {"texture": "ingredient-pizza-tomato-raw.png", "modifiers": {"place-on": ["counter"]}},
+        "potato-cheese": {"texture": "ingredient-potato-cheese.png", "modifiers": {"place-on": ["counter"], "plated": "plated-potato-cheese"}},
+        "potato-cooked": {"texture": "ingredient-potato-cooked.png", "modifiers": {"place-on": ["counter"]}, "plated": "plated-potato"}},
+        "potato-pepper": {"texture": "ingredient-potato-pepper.png", "modifiers": {"place-on": ["counter"], "plated": "plated-potato-pepper"}},
+        "potato-raw": {"texture": "ingredient-potato-raw.png", "modifiers": {"place-on": ["counter"]}},
+        "potato-tomato": {"texture": "ingredient-potato-tomato.png", "modifiers": {"place-on": ["counter"], "plated": "plated-potato-tomato"}},
+        "bun-toasted": {"texture": "ingredient_bun_toasted.png", "modifiers": {"place-on": ["counter"]}},
+        "bun-untoasted": {"texture": "ingredient_bun_untoasted.png", "modifiers": {"place-on": ["counter"]}},
+
+
+        "plated-burger": {"texture": "plated-burger.png", "modifiers": {"place-on": ["counter"]}},
+        "plated-cheese-burger": {"texture": "plated-cheese-burger.png", "modifiers": {"place-on": ["counter"]}},
+        "plated-cheese-tomato-pizza": {"texture": "plated-cheese-tomato-pizza.png", "modifiers": {"place-on": ["counter"]}},
+        "plated-pepper-burger": {"texture": "plated-pepper-burger.png", "modifiers": {"place-on": ["counter"]}},
+        "plated-pizza-cheese-pepper-tomato": {"texture": "plated-pizza-cheese-pepper-tomato.png", "modifiers": {"place-on": ["counter"]}},
+        "plated-potato-cheese": {"texture": "plated-potato-cheese.png", "modifiers": {"place-on": ["counter"]}},
+        "plated-potato-pepper": {"texture": "plated-potato-pepper.png", "modifiers": {"place-on": ["counter"]}},
+        "plated-potato-tomato": {"texture": "plated-potato-tomato.png", "modifiers": {"place-on": ["counter"]}},
+        "plated-potato": {"texture": "plated-potato.png", "modifiers": {"place-on": ["counter"]}},
+        "plated-tomato-pizza": {"texture": "plated-tomato-pizza.png", "modifiers": {"place-on": ["counter"]}},
+        "plated-dough": {"texture": "plated-dough.png", "modifiers": {"place-on": ["counter"]}},
+        "plated-bun": {"texture": "plated-bun.png", "modifiers": {"place-on": ["counter"]}},
+        "plated-patty": {"texture": "plated-patty.png", "modifiers": {"place-on": ["counter"]}},
+        "plated-pepper": {"texture": "plated-pepper-cut.png", "modifiers": {"place-on": ["counter"]}},
+        "plated-cheese": {"texture": "plated-cheese-cut.png", "modifiers": {"place-on": ["counter"]}}
+
     },
     "interactables": {
         "counter": {
@@ -83,15 +133,15 @@
             "modifiers": {}
         },
         "customer-counter": {
-            "texture": "counter.png",
+            "texture": "table.png",
             "x-size": 1,
             "y-size": 1,
             "modifiers": {"customer-table": {
                 "chairs": [
-                    {"dx": -1, "dy": 0,  "type": "chair"},
-                    {"dx": 0,  "dy": 1,  "type": "chair"},
-                    {"dx": 0,  "dy": -1, "type": "chair"},
-                    {"dx": 1,  "dy": 0,  "type": "chair"}
+                    {"dx": -1, "dy": 0,  "type": "chair-left"},
+                    {"dx": 0,  "dy": 1,  "type": "chair-back"},
+                    {"dx": 0,  "dy": -1, "type": "chair-front"},
+                    {"dx": 1,  "dy": 0,  "type": "chair-right"}
                 ]
             }}
         },
@@ -131,12 +181,6 @@
             "y-size": 1,
             "modifiers": {"modify-ingredient-placement": {"x": 13, "y": 13}}
         },
-        "plate-pantry": {
-            "texture": "utensil-plate.png",
-            "x-size": 1,
-            "y-size": 1,
-            "modifiers": {"pantry-of": "plate"}
-        },
         "allignment-test": {
             "texture": "allignment-test.png",
             "x-size": 1,
@@ -148,7 +192,103 @@
             "x-size": 2,
             "y-size": 2,
             "modifiers": {}
+        },
+
+
+        "cooking-station": {
+            "texture": "station_cooking.png",
+            "x-size": 1,
+            "y-size": 1,
+            "modifiers": {"modify-ingredient-placement": {"x": 13, "y": 13}}},
+        "bun-pantry": {
+            "texture": "counter-pantry-bun.png",
+            "x-size": 1,
+            "y-size": 1,
+            "modifiers": {"pantry-of": "bun"}
+        },
+        "cheese-pantry": {
+            "texture": "counter-pantry-cheese.png",
+            "x-size": 1,
+            "y-size": 1,
+            "modifiers": {"pantry-of": "cheese-whole"}
+        },
+        "dough-pantry": {
+            "texture": "counter-pantry-dough.png",
+            "x-size": 1,
+            "y-size": 1,
+            "modifiers": {"pantry-of": "dough-whole"}
+        },
+        "empty-pantry": {
+            "texture": "counter-pantry-empty.png",
+            "x-size": 1,
+            "y-size": 1,
+            "modifiers": {}
+        },
+        "patty-pantry": {
+            "texture": "counter-pantry-patty.png",
+            "x-size": 1,
+            "y-size": 1,
+            "modifiers": {"pantry-of": "patty-raw"}
+        },
+        "pepper-pantry": {
+            "texture": "counter-pantry-pepper.png",
+            "x-size": 1,
+            "y-size": 1,
+            "modifiers": {"pantry-of": "pepper-whole"}
+        },
+        "plate-pantry": {
+            "texture": "counter-pantry-plate.png",
+            "x-size": 1,
+            "y-size": 1,
+            "modifiers": {"pantry-of": "plate"}
+        },
+        "potato-pantry": {
+            "texture": "counter-pantry-potato.png",
+            "x-size": 1,
+            "y-size": 1,
+            "modifiers": {"pantry-of": "potato-raw"}
+        },
+        "chair-back": {
+            "texture": "chair-back.png",
+            "x-size": 1,
+            "y-size": 1,
+            "modifiers": {"collision": false, "modify-texture-origin": {"x": 0, "y": 3}}
+        },
+        "chair-left": {
+            "texture": "chair-left.png",
+            "x-size": 1,
+            "y-size": 1,
+            "modifiers": {"collision": false, "modify-texture-origin": {"x": 3, "y": 3}}
+        },
+        "chair-right": {
+            "texture": "chair-right.png",
+            "x-size": 1,
+            "y-size": 1,
+            "modifiers": {"collision": false, "modify-texture-origin": {"x": -3, "y": 3}}
+        },
+        "chair-front": {
+            "texture": "chair-front.png",
+            "x-size": 1,
+            "y-size": 1,
+            "modifiers": {
+                "collision": false,
+                "modify-texture-origin": {
+                    "x": 0,
+                    "y": 3
+                }
+            }
         }
+
+
+
+
+
+
+
+
+
+
+
     },
     "combinations": {
         "salad1": {
@@ -156,7 +296,10 @@
             "player-start": "tomato-cut",
             "interactable-end": "plated-lettuce-tomato",
             "player-end": null,
-            "modifiers": {"both-swappable":  true, "plated-variants": true},
+            "modifiers": {
+                "both-swappable": true,
+                "plated-variants": true
+            },
             "allowed-stations": [
                 "counter"
             ]
@@ -166,7 +309,10 @@
             "player-start": "onion-cut",
             "interactable-end": "plated-tomato-onion",
             "player-end": null,
-            "modifiers": {"both-swappable": true, "plated-variants":  true},
+            "modifiers": {
+                "both-swappable": true,
+                "plated-variants": true
+            },
             "allowed-stations": [
                 "counter"
             ]
@@ -176,7 +322,10 @@
             "player-start": "onion-cut",
             "interactable-end": "plated-lettuce-onion",
             "player-end": null,
-            "modifiers": {"both-swappable": true, "plated-variants":  true},
+            "modifiers": {
+                "both-swappable": true,
+                "plated-variants": true
+            },
             "allowed-stations": [
                 "counter"
             ]
@@ -186,7 +335,10 @@
             "player-start": "onion-cut",
             "interactable-end": "plated-lettuce-tomato-onion",
             "player-end": null,
-            "modifiers": {"both-swappable": true, "player-start-plated-variant":  true},
+            "modifiers": {
+                "both-swappable": true,
+                "player-start-plated-variant": true
+            },
             "allowed-stations": [
                 "counter"
             ]
@@ -196,7 +348,10 @@
             "player-start": "lettuce-cut",
             "interactable-end": "plated-lettuce-tomato-onion",
             "player-end": null,
-            "modifiers": {"both-swappable": true, "player-start-plated-variant":  true},
+            "modifiers": {
+                "both-swappable": true,
+                "player-start-plated-variant": true
+            },
             "allowed-stations": [
                 "counter"
             ]
@@ -206,12 +361,132 @@
             "player-start": "tomato-cut",
             "interactable-end": "plated-lettuce-tomato-onion",
             "player-end": null,
-            "modifiers": {"both-swappable": true, "player-start-plated-variant":  true},
+            "modifiers": {
+                "both-swappable": true,
+                "player-start-plated-variant": true
+            },
+            "allowed-stations": [
+                "counter"
+            ]
+        },
+        "jpc": {
+            "interactable-start": "plated-potato",
+            "player-start": "cheese-cut",
+            "interactable-end": "plated-potato-cheese",
+            "player-end": null,
+            "modifiers": {
+                "both-swappable": true,
+                "player-start-plated-variant": true
+            },
+            "allowed-stations": [
+                "counter"
+            ]
+        },
+        "jpt": {
+            "interactable-start": "plated-potato",
+            "player-start": "tomato-cut",
+            "interactable-end": "plated-potato-tomato",
+            "player-end": null,
+            "modifiers": {
+                "both-swappable": true,
+                "player-start-plated-variant": true
+            },
+            "allowed-stations": [
+                "counter"
+            ]
+        },
+        "jpp": {
+            "interactable-start": "plated-pepper",
+            "player-start": "potato-raw",
+            "interactable-end": "plated-potato-pepper",
+            "player-end": null,
+            "modifiers": {
+                "both-swappable": true,
+                "player-start-plated-variant": true
+            },
+            "allowed-stations": [
+                "counter"
+            ]
+        },
+        "pizza-t": {
+            "interactable-start": "dough-cut",
+            "player-start": "tomato-cut",
+            "interactable-end": "pizza-tomato-raw",
+            "player-end": null,
+            "modifiers": {
+                "both-swappable": true
+            },
+            "allowed-stations": [
+                "counter"
+            ]
+        },
+        "pizza-tc": {
+            "interactable-start": "pizza-tomato-raw",
+            "player-start": "cheese-cut",
+            "interactable-end": "pizza-cheese-tomato-raw",
+            "player-end": null,
+            "modifiers": {
+                "both-swappable": true
+            },
+            "allowed-stations": [
+                "counter"
+            ]
+        },
+        "pizza-tcp": {
+            "interactable-start": "pizza-cheese-tomato-raw",
+            "player-start": "pepper-cut",
+            "interactable-end": "pizza-cheese-pepper-tomato-raw",
+            "player-end": null,
+            "modifiers": {
+                "both-swappable": true
+            },
+            "allowed-stations": [
+                "counter"
+            ]
+        },
+        "burger": {
+            "interactable-start": "plated-patty",
+            "player-start": "bun",
+            "interactable-end": "plated-burger",
+            "player-end": null,
+            "modifiers": {
+                "both-swappable": true,
+                "player-start-plated-variant": true
+            },
+            "allowed-stations": [
+                "counter"
+            ]
+        },
+        "burger-cheese": {
+            "interactable-start": "plated-burger",
+            "player-start": "cheese-cut",
+            "interactable-end": "plated-cheese-burger",
+            "player-end": null,
+            "modifiers": {
+                "both-swappable": true,
+                "player-start-plated-variant": true
+            },
+            "allowed-stations": [
+                "counter"
+            ]
+        },
+        "burger-pepper": {
+            "interactable-start": "plated-pepper",
+            "player-start": "burger",
+            "interactable-end": "plated-pepper-burger",
+            "player-end": null,
+            "modifiers": {
+                "both-swappable": true,
+                "player-start-plated-variant": true
+            },
             "allowed-stations": [
                 "counter"
             ]
         }
     },
+
+
+
     "actions": {
         "cut-lettuce": {
             "start": "lettuce-uncut",
@@ -233,6 +508,59 @@
             "time": 2000,
             "chef-required": true,
             "stations": ["cutting-station"]
+        },
+        "cut-cheese": {
+            "start": "cheese-whole",
+            "end": "cheese-cut",
+            "time": 2000,
+            "chef-required": true,
+            "stations": ["cutting-station"]
+        },
+        "cut-pepper": {
+            "start": "pepper-whole",
+            "end": "pepper-cut",
+            "time": 2000,
+            "chef-required": true,
+            "stations": ["cutting-station"]
+        },
+        "cut-dough": {
+            "start": "dough-whole",
+            "end": "dough-cut",
+            "time": 2000,
+            "chef-required": true,
+            "stations": ["cutting-station"]
+        },
+        "cook-potato": {
+            "start": "potato-raw",
+            "end": "potato-cooked",
+            "time": 10000,
+            "chef-required": false,
+            "stations": ["cooking-station"]
+        },
+        "cook-patty": {
+            "start": "patty-raw",
+            "end": "patty-cooked",
+            "time": 10000,
+            "chef-required": false,
+            "stations": ["cooking-station"]
+        }, "cook-pizza-tomato": {
+            "start": "pizza-tomato-raw",
+            "end": "pizza-tomato-cooked",
+            "time": 10000,
+            "chef-required": false,
+            "stations": ["cooking-station"]
+        }, "cook-pizza-cheese-tomato": {
+            "start": "pizza-cheese-tomato-raw",
+            "end": "pizza-cheese-tomato-cooked",
+            "time": 10000,
+            "chef-required": false,
+            "stations": ["cooking-station"]
+        }, "cook-pizza-cheese-pepper-tomato": {
+            "start": "pizza-cheese-pepper-tomato-raw",
+            "end": "pizza-cheese-pepper-tomato-cooked",
+            "time": 10000,
+            "chef-required": false,
+            "stations": ["cooking-station"]
         }
     },
     "levels": {
@@ -363,7 +691,7 @@
         },
         "slow": {
             "texture": "modifier-walk-slow.png",
-            "chef-walk-speed-multiplier": 1.2d
+            "chef-walk-speed-multiplier": 1.2
         }
     }
 }
