@@ -691,7 +691,7 @@
         },
         "slow": {
             "texture": "modifier-walk-slow.png",
-            "chef-walk-speed-multiplier": 1.2d
+            "chef-walk-speed-multiplier": 1.2
         }
     }
 }
