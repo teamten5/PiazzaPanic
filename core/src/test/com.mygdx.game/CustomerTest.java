@@ -61,6 +61,7 @@ public class CustomerTest {
     Customer testingCustomer = new Customer(testingprofile, testingGroup);
     Difficulty testingdiff = new Difficulty("test", List.of(testingprofile), 1, 10, 10, 5, 5);
     Level level = new Level(leveltype, testingdiff);
+    Spot spotTest = new Spot(1, 1, 1, 1, "testing");
 
 
     @BeforeEach
@@ -70,12 +71,47 @@ public class CustomerTest {
 
     @Test
     public void testSpot(){
-        Spot spotTest = new Spot(1, 1, 1, 1, "testing");
         testingCustomer.setSpot(spotTest);
         assertEquals(spotTest, testingCustomer.spot);
     }
 
+/* //Method for equality in json values
+
+
+    public Boolean jsonValueEquals(JsonValue firstvalue, JsonValue secondvalue) {
+        int zx = 0;
+        for (JsonValue val : firstvalue) {
+            if (firstvalue.get(zx) == secondvalue.get(zx)) {
+                zx++;
+            } else {
+                return false;
+            }
+
+        }
+        return true;
+    }
+    //Using .toString instead
+
+ */
+
+
+
+    @Test
     public void testSave1Customer(){
+        testingCustomer.saveGame();
+        JsonValue testsavedata = new JsonValue(JsonValue.ValueType.object);
+        JsonValue saveData = new JsonValue(JsonValue.ValueType.object);
+
+        testsavedata.addChild("x", new JsonValue(testingCustomer.posX));
+        testsavedata.addChild("y", new JsonValue(testingCustomer.posY));
+        testsavedata.addChild("controller", testingCustomer.controller.saveGame());
+        testsavedata.addChild("spot", new JsonValue("testing"));
+        testsavedata.addChild("profile", testingCustomer.profile.saveGame());
+        testsavedata.addChild("current-order", new JsonValue(testingCustomer.currentOrder));
+        testsavedata.addChild("progress", new JsonValue(testingCustomer.progress));
+        testsavedata.addChild("state", new JsonValue(testingCustomer.state.name()));
+        testsavedata.addChild("place-in-queue", new JsonValue(testingCustomer.placeInQueue));
+        assertEquals(testsavedata.toString(),testingCustomer.saveGame().toString());
     }
 
     @Test

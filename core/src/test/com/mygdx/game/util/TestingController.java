@@ -42,6 +42,10 @@ public class TestingController extends Controller {
 
     @Override
     public JsonValue saveGame() {
-        return null;
+        JsonValue saveData = new JsonValue(JsonValue.ValueType.object);
+
+        saveData.addChild("type", new JsonValue("user"));
+
+        return saveData;
     }
 }

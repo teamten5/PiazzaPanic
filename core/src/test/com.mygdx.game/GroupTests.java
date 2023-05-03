@@ -1,18 +1,17 @@
 package com.mygdx.game;
+import static com.mygdx.game.actors.Customer.State.ENTERING;
+import static com.mygdx.game.actors.Customer.State.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.badlogic.gdx.backends.headless.mock.audio.MockSound;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.actors.PlayerType;
-import com.mygdx.game.actors.Profile;
-import com.mygdx.game.actors.Spot;
+import com.mygdx.game.actors.*;
 import com.mygdx.game.interact.InteractableInLevel;
 import com.mygdx.game.levels.Difficulty;
 import com.mygdx.game.levels.LevelType;
 import com.mygdx.game.util.TestingController;
 import org.junit.jupiter.api.BeforeEach;
 import com.mygdx.game.levels.Level;
-import com.mygdx.game.actors.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
@@ -39,7 +38,7 @@ import com.mygdx.game.actors.controllers.Controller;
 
 @RunWith(TestingApplicationListener.class)
 
-public class Playertest1 {
+public class GroupTests{
     FileHandle handle = Gdx.files.internal("assets");
 
     FileHandle[] files = Gdx.files.internal("./").list();
@@ -57,10 +56,15 @@ public class Playertest1 {
             List.of(testingplayer),
             "potato"
     );
+
     Profile testingprofile = new Profile(testchef, new ArrayList<>(), 1, 1, 1, 1, 1, 1, 1, 1, new Spot(1, 1, 1, 1, "testing"), List.of(new Spot(1, 1, 1, 1, "testing1")), new ArrayList<>(), new MockSound(), "testing");
+    Profile testingprofile2 = new Profile(testchef, new ArrayList<>(), 1, 1, 1, 1, 1, 1, 1, 1, new Spot(2, 2, 1, 1, "testing"), List.of(new Spot(2, 2, 1, 1, "testing1")), new ArrayList<>(), new MockSound(), "testing");
+    Group testingGroup = new Group(List.of(testingprofile, testingprofile2));
+    Customer testingCustomer = new Customer(testingprofile, testingGroup);
     Difficulty testingdiff = new Difficulty("test", List.of(testingprofile), 1, 10, 10, 5, 5);
     Level level = new Level(leveltype, testingdiff);
-    Player player = new Player(testingplayer, controller1, level);
+    Spot spotTest = new Spot(1, 1, 1, 1, "testing");
+
 
     @BeforeEach
     public void setup() {
@@ -68,38 +72,31 @@ public class Playertest1 {
     }
 
     @Test
-    public void testUpdate() {
-        float delta = 0.1f; // set the time interval
-        player.update(delta); // update the player
-        assertEquals(1, player.posX); // assert that the x-position is still 0
-        assertEquals(1, player.posX); // assert that the y-position is still 0
+    public void everyoneHasFoodTest(){
+        testingGroup.members.get(0).state = EATING;
+        testingGroup.members.get(1).state = EATING;
+        assertTrue(testingGroup.everyoneHasTheFood());
+
+
     }
 
     @Test
-    public void testControllers() {
-        float delta = 0.2f;
-        float oldx = player.posX;
-        float oldy = player.posY;
-        controller1.movement("left", delta);
-        controller1.movement("down", delta);
-        player.update(delta);
-        assertTrue(player.posX == oldx);
-        assertFalse((player.posY == oldy));
+    public void takeOrdersTest(){
+        testingGroup.takeOrders();
+        assertTrue(testingGroup.members.get(0).state == ORDERING && testingGroup.members.get(1).state == ORDERING);
     }
 
     @Test
-    public void testsavegame(){
-        Texture testingtexture = new Texture("textures/ingredient_bun_toasted.png");
-
-        player.carrying= new Ingredient(testingtexture, "buns-toasted");
-        JsonValue playersave = new JsonValue(JsonValue.ValueType.object);
-
-        playersave.addChild("type", new JsonValue(testingplayer.name));
-        playersave.addChild("x", new JsonValue(player.posX));
-        playersave.addChild("y", new JsonValue(player.posY));
-        playersave.addChild("carrying", new JsonValue(player.carrying._name));
-        playersave.addChild("controller", player.controller.saveGame());
-        assertEquals(player.saveGame().toString(),playersave.toString());
+    public void readyToLeaveTest(){
+        testingGroup.members.get(0).state = LEAVING;
+        testingGroup.members.get(1).state = LEAVING;
+        testingGroup.members.get(0).posX = 1;
+        testingGroup.members.get(1).posX = 2;
+        testingGroup.members.get(0).posY = 1;
+        testingGroup.members.get(1).posY = 2;
+        assertTrue(testingGroup.readyToLeave());
     }
+
 
 }
+

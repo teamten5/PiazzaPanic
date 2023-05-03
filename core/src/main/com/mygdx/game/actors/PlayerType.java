@@ -16,7 +16,7 @@ public class PlayerType {
     public float sizeY;
 
     final Spot spawn;
-    final String name;
+    public final String name;
 
 
     public PlayerType(Texture texture, Spot spawn, String name) {

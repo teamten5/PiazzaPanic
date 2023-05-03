@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Group {
-    List<Customer> members = new ArrayList<>();
+    public List<Customer> members = new ArrayList<>();
 
     boolean active = true;
 
