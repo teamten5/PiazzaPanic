@@ -12,6 +12,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+
+A Profile class that represents a customer profile. Each profile contains
+the customer's order, speed, patience, etc.
+*/
+
+
 public class Profile {
 
     final public Texture texture;
