@@ -1,18 +1,17 @@
 package com.mygdx.game;
+import static com.mygdx.game.actors.Customer.State.ENTERING;
+import static com.mygdx.game.actors.Customer.State.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.badlogic.gdx.backends.headless.mock.audio.MockSound;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.actors.PlayerType;
-import com.mygdx.game.actors.Profile;
-import com.mygdx.game.actors.Spot;
+import com.mygdx.game.actors.*;
 import com.mygdx.game.interact.InteractableInLevel;
 import com.mygdx.game.levels.Difficulty;
 import com.mygdx.game.levels.LevelType;
 import com.mygdx.game.util.TestingController;
 import org.junit.jupiter.api.BeforeEach;
 import com.mygdx.game.levels.Level;
-import com.mygdx.game.actors.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
@@ -39,7 +38,7 @@ import com.mygdx.game.actors.controllers.Controller;
 
 @RunWith(TestingApplicationListener.class)
 
-public class Playertest1 {
+public class CustomerTest {
     FileHandle handle = Gdx.files.internal("assets");
 
     FileHandle[] files = Gdx.files.internal("./").list();
@@ -58,9 +57,11 @@ public class Playertest1 {
             "potato"
     );
     Profile testingprofile = new Profile(testchef, new ArrayList<>(), 1, 1, 1, 1, 1, 1, 1, 1, new Spot(1, 1, 1, 1, "testing"), List.of(new Spot(1, 1, 1, 1, "testing1")), new ArrayList<>(), new MockSound(), "testing");
+    Group testingGroup = new Group(List.of(testingprofile));
+    Customer testingCustomer = new Customer(testingprofile, testingGroup);
     Difficulty testingdiff = new Difficulty("test", List.of(testingprofile), 1, 10, 10, 5, 5);
     Level level = new Level(leveltype, testingdiff);
-    Player player = new Player(testingplayer, controller1, level);
+
 
     @BeforeEach
     public void setup() {
@@ -68,28 +69,35 @@ public class Playertest1 {
     }
 
     @Test
-    public void testUpdate() {
-        float delta = 0.1f; // set the time interval
-        player.update(delta); // update the player
-        assertEquals(1, player.posX); // assert that the x-position is still 0
-        assertEquals(1, player.posX); // assert that the y-position is still 0
+    public void testSpot(){
+        Spot spotTest = new Spot(1, 1, 1, 1, "testing");
+        testingCustomer.setSpot(spotTest);
+        assertEquals(spotTest, testingCustomer.spot);
+    }
+
+    public void testSave1Customer(){
     }
 
     @Test
-    public void testControllers() {
-        float delta = 0.2f;
-        float oldx = player.posX;
-        float oldy = player.posY;
-        controller1.movement("left", delta);
-        controller1.movement("down", delta);
-        player.update(delta);
-        assertTrue(player.posX == oldx);
-        assertFalse((player.posY == oldy));
+    public void testState() {
+        float delta = 0.2f; // set the time interval
+        testingCustomer.setState(ENTERING);
+        assertTrue(testingCustomer.state==ENTERING);
+        testingCustomer.setState(PICKING);
+        assertTrue(testingCustomer.state==PICKING);
+        testingCustomer.setState(WAITING_FOR_ORDER_TO_BE_TAKEN);
+        assertTrue(testingCustomer.state==WAITING_FOR_ORDER_TO_BE_TAKEN);
+        testingCustomer.setState(ORDERING);
+        assertTrue(testingCustomer.state==ORDERING);
+        testingCustomer.setState(WAITING_FOR_FOOD);
+        assertTrue(testingCustomer.state==WAITING_FOR_FOOD);
+        testingCustomer.setState(WAITING_FOR_GROUP_FOOD);
+        assertTrue(testingCustomer.state==WAITING_FOR_GROUP_FOOD);
+        testingCustomer.setState(EATING);
+        assertTrue(testingCustomer.state==EATING);
+        testingCustomer.setState(LEAVING);
+        assertTrue(testingCustomer.state==LEAVING);
+
     }
-
- //   @Test
-   // public void testsavegame(){
-    //    assertEquals(player.saveGame(),"test");
-    //}
-
 }
+

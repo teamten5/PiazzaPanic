@@ -10,6 +10,7 @@ import com.mygdx.game.Ingredient;
 import com.mygdx.game.interact.Interactable;
 import com.mygdx.game.levels.Level;
 import com.mygdx.game.actors.controllers.Controller;
+import org.jetbrains.annotations.VisibleForTesting;
 
 /**
  * 
@@ -29,6 +30,7 @@ public class Player {
 	public Ingredient carrying;
 
 	public Controller controller;
+	public boolean isPositionValid;
 
 	private Level level;
 
@@ -83,6 +85,8 @@ public class Player {
 			}
 		}
 	}
+
+
 
 	Boolean isPositionValid(float x, float y) {
 		boolean bl = false, br = false, tl = false, tr = false;
