@@ -27,11 +27,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * 
- * @author Thomas McCarthy
- * 
+
  * The GameScreen class handles the main rendering and updating of the game.
- *
+
  */
 
 public class GameScreen extends InputAdapter implements Screen {
