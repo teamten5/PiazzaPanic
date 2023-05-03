@@ -12,6 +12,14 @@ import com.mygdx.game.actors.Spot;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+
+Interactable represents an object.
+Interactable has interactions based on the current ingredient.
+*/
+
+
 public class Interactable {
 
 
