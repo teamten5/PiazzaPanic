@@ -21,6 +21,7 @@ public class GameOverScreen implements Screen {
     Sprite YouWon;
     Sprite YouLost;
     Sprite GameOver;
+    Sprite BackToMenu;
 
 
     private Stage stage;
@@ -36,6 +37,8 @@ public class GameOverScreen implements Screen {
         YouWon = new Sprite(new Texture("GameOverScreen/YouWon.png")); //todo put actual texture
         YouLost = new Sprite(new Texture("GameOverScreen/YouLost.png")); //todo put actual texture
         GameOver = new Sprite(new Texture("GameOverScreen/GameOver.png")); //todo put actual texture
+
+
 
 
 
