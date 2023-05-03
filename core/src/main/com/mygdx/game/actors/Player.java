@@ -101,7 +101,9 @@ public class Player {
 		saveData.addChild("type", new JsonValue(type.name));
 		saveData.addChild("x", new JsonValue(posX));
 		saveData.addChild("y", new JsonValue(posY));
-		saveData.addChild("carrying", new JsonValue(carrying._name));
+		if (carrying != null) {
+			saveData.addChild("carrying", new JsonValue(carrying._name));
+		}
 		saveData.addChild("controller", controller.saveGame());
 
 		return saveData;

@@ -1,8 +1,6 @@
 package com.mygdx.game.screens;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -18,8 +16,8 @@ import static java.lang.System.exit;
 //
 public class MenuScreen implements Screen {
     Sprite playButton;
-    Sprite options;
-    Sprite quit;
+    Sprite optionsButton;
+    Sprite quitButton;
 
 
     SpriteBatch batch;
@@ -33,13 +31,13 @@ public class MenuScreen implements Screen {
         this.piazzaPanic = piazzaPanic;
         batch = new SpriteBatch();
         playButton = new Sprite(new Texture("MenuScreen/MenuScreenPlay.png")); //todo put actual texture
-        options = new Sprite(new Texture("MenuScreen/MenuScreenOptions.png")); //todo put actual texture
-        quit = new Sprite(new Texture("MenuScreen/MenuScreenQuit.png")); //todo put actual texture
+        optionsButton = new Sprite(new Texture("MenuScreen/MenuScreenOptions.png")); //todo put actual texture
+        quitButton = new Sprite(new Texture("MenuScreen/MenuScreenQuit.png")); //todo put actual texture
 
 
         playButton.setCenter(0,0);
-        options.setCenter(0,-100);
-        quit.setCenter(0,-200);
+        optionsButton.setCenter(0,-100);
+        quitButton.setCenter(0,-200);
         viewport = new ScreenViewport();
         //int scaler = com.badlogic.gdx.graphics.viewport.setUnitsPerPixel(2f/Config.scaling); //THIS CONFIG THING MAKES THE BUTTONS NOTPROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM
     }
@@ -67,8 +65,8 @@ public class MenuScreen implements Screen {
 
         batch.begin();
         playButton.draw(batch);
-        options.draw(batch);
-        quit.draw(batch);
+        optionsButton.draw(batch);
+        quitButton.draw(batch);
 
         // Check if the left mouse button is pressed
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
@@ -88,13 +86,13 @@ public class MenuScreen implements Screen {
                 piazzaPanic.ModeScreen1();
 
             }
-            if (options.getBoundingRectangle().contains(position.x, position.y)) {
+            if (optionsButton.getBoundingRectangle().contains(position.x, position.y)) {
 
 
                 System.out.println("The options button was pressed");
                 piazzaPanic.OptionScreen1();
             }
-            if (quit.getBoundingRectangle().contains(position.x, position.y)) {
+            if (quitButton.getBoundingRectangle().contains(position.x, position.y)) {
                 exit(0);
                 System.out.println("The quit button was pressed");
             }

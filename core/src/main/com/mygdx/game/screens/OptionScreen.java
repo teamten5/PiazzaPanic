@@ -1,111 +1,118 @@
 package com.mygdx.game.screens;
+import com.mygdx.game.PiazzaPanic;
 
 import com.badlogic.gdx.Gdx;
 //import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 //import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 //import com.badlogic.gdx.graphics.Texture;
 //import com.badlogic.gdx.graphics.g2d.Sprite;
 //import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 //import com.badlogic.gdx.math.Vector3;
-import com.mygdx.game.Config;
-import com.mygdx.game.PiazzaPanic;
 
 
 public class OptionScreen implements Screen {
 
     private final PiazzaPanic game;
+
     private Stage stage;
     private Skin skin;
-    private Slider volumeMasterSlider;
-    private Slider volumeMusicSlider;
-    private Slider volumeEffectSlider;
+
+    Sprite backButton;
+    Sprite keybindsButton;
+    SpriteBatch batch;
     ScreenViewport viewport;
 
-    //Sprite back;
+
+    Sprite soundSettingsButton;
+
 
     public OptionScreen(final PiazzaPanic game) {
+        batch = new SpriteBatch();
         this.game = game;
         stage = new Stage();
         skin = new Skin(Gdx.files.internal("assets/gdx-skins-master/gdx-holo/skin/uiskin.json"));
         viewport = new ScreenViewport();
-        //back = new Sprite(new Texture("textures/MenuScreenQuit.png"));
 
-        TextButton backButton = new TextButton("Back", skin);
-        backButton.setPosition(Gdx.graphics.getWidth() - 100, 10);
-        backButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("The back button was pressed");
+        backButton = new Sprite(new Texture("assets/OptionScreen/BackButton.png")); //todo put actual texture
+        //keybindsButton = new Sprite(new Texture("assets/OptionScreen/KeybindButton.png")); //todo put actual texture
 
-                game.goToMenu();
+        soundSettingsButton = new Sprite(new Texture("assets/OptionScreen/soundSettingsButton.png")); //todo put actual texture
 
-            }
-        });
-        stage.addActor(backButton);
+        //CENTERS
+        backButton.setCenter(100,0); //todo figure out centering for scaling
+        //keybindsButton.setCenter(0,-100); //todo figure out centering for scaling
+        soundSettingsButton.setCenter(0, 0); //todo figure out centering for scaling
+
+
+
     }
 
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(stage);
-
-        Table table = new Table();
-        table.setFillParent(true);
-        table.center();
 
 
-        volumeMasterSlider = new Slider(0, 1, 0.1f, false, skin);
-        volumeMasterSlider.setValue(Config.volumeMaster);
-
-        volumeMusicSlider = new Slider(0, 1, 0.1f, false, skin);
-        volumeMusicSlider.setValue(Config.volumeMusic);
-
-        volumeEffectSlider = new Slider(0, 1, 0.1f, false, skin);
-        volumeEffectSlider.setValue(Config.volumeEffects);
-
-        skin = new Skin(Gdx.files.internal("assets/gdx-skins-master/gdx-holo/skin/uiskin.json"));
-        table.setSkin(skin);
-        table.row();
-        table.add("Master Sound Level:").left().padRight(10);
-        table.add(volumeMasterSlider).width(300);
-        table.row();
-        table.add("Music Sound Level:").left().padRight(10);
-        table.add(volumeMusicSlider).width(300);
-        table.row();
-        table.add("Effect Sound Level:").left().padRight(10);
-        table.add(volumeEffectSlider).width(300);
-        table.row();
-//            table.add("Back").colspan(2).center().padTop(50);
-
-
-        stage.addActor(table);
-        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1); // todo choose colour
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        viewport.apply();
+        batch.setProjectionMatrix(viewport.getCamera().combined);
         stage.act(delta);
         stage.draw();
 
+        batch.begin();
+        backButton.draw(batch);
+        //keybindsButton.draw(batch);
 
+        soundSettingsButton.draw(batch);
+
+
+
+        // Check if the left mouse button is pressed
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+            // Get the coordinates of the mouse click
+            int x = Gdx.input.getX();
+            int y = Gdx.input.getY();
+
+            // show viewport coordinate system
+            Vector3 position = viewport.unproject(new Vector3(x, y, 0));
+
+            // Check if mouse pressed
+            if (backButton.getBoundingRectangle().contains(position.x, position.y)) {
+                game.goToMenu();//todo NOT GOING TO ACTUAL MAIN MENU
+            }
+            //if (keybindsButton.getBoundingRectangle().contains(position.x, position.y)) {
+                // Code to be executed when the button is pressed
+            //    game.goToMenu();//todo NOT GOING TO ACTUAL MAIN MENU
+            //}
+            if (soundSettingsButton.getBoundingRectangle().contains(position.x, position.y)) {
+                game.SoundSettings1();
+            }
+
+        }
+
+
+        batch.end();
 
     }
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+        viewport.update(width,height);
     }
 
     @Override
@@ -129,10 +136,5 @@ public class OptionScreen implements Screen {
         skin.dispose();
     }
 
-    private void saveConfig() {
-        Config.volumeMaster = volumeMasterSlider.getValue();
-        Config.volumeMusic = volumeMusicSlider.getValue();
-        Config.volumeEffects = volumeEffectSlider.getValue();
-        Config.saveConfig();
-    }
+    private void saveConfig() {}
 }

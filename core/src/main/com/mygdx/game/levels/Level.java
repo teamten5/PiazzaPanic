@@ -6,17 +6,23 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.ValueType;
 import com.mygdx.game.Config;
+import com.mygdx.game.Ingredient;
 import com.mygdx.game.PiazzaPanic;
 import com.mygdx.game.actors.Group;
 import com.mygdx.game.actors.Profile;
 import com.mygdx.game.actors.Spot;
+import com.mygdx.game.actors.controllers.Controller;
+import com.mygdx.game.interact.Action;
+import com.mygdx.game.interact.Combination;
 import com.mygdx.game.interact.Interactable;
 import com.mygdx.game.interact.InteractableInLevel;
 import com.mygdx.game.actors.Player;
 import com.mygdx.game.actors.controllers.NullController;
 import com.mygdx.game.actors.controllers.UserController;
+import com.mygdx.game.interact.InteractableType;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Level {
@@ -48,7 +54,7 @@ public class Level {
         this.type = type;
         this.difficulty = difficulty;
 
-        players = type.playerTypes.stream().map(x -> x.instantiate(new NullController(), this)).toList();
+        players = type.playerTypes.values().stream().map(x -> x.instantiate(new NullController(), this)).toList();
         players.get(0).controller = new UserController();
 
         interactables = type.interactables.stream().map(InteractableInLevel::initialise).toArray(Interactable[]::new);
@@ -68,6 +74,75 @@ public class Level {
 
         generateNewDayCustomers();
     }
+
+    public Level(
+          JsonValue levelSaveData,
+          HashMap<String, Ingredient> ingredientHashMap,
+          HashMap<String, InteractableType> interactableTypeHashMap,
+          HashMap<InteractableType, ArrayList<Combination>> combinationsHashmap,
+          HashMap<InteractableType, HashMap<Ingredient, Action>> actionHashmap,
+          HashMap<String, LevelType> levelTypeHashMap,
+          JsonValue jsonProfiles
+    ) {
+        this.type = levelTypeHashMap.get(levelSaveData.getString("type"));
+
+        this.players = new ArrayList<>();
+        for (JsonValue playerData: levelSaveData.get("players")) {
+            this.players.add(new Player(
+                  this.type.playerTypes.get(playerData.getString("type")),
+                  Controller.loadGame(playerData.get("controller")),
+                  this
+            ));
+        }
+        minGroupSize = levelSaveData.getInt("min-group-size");
+        maxGroupSize = levelSaveData.getInt("max-group-size");
+        dailyCustomers = levelSaveData.getInt("daily-customers");
+        day = levelSaveData.getInt("day");
+        dayLength = levelSaveData.getInt("day-length");
+        timeInDay = levelSaveData.getInt("time-in-day");
+
+        profiles = new ArrayList<>();
+        for (JsonValue profileSaveData: levelSaveData.get("profiles")) {
+            profiles.add(Profile.loadGame(
+                  jsonProfiles,
+                  profileSaveData,
+                  ingredientHashMap,
+                  type.spotHashMap,
+                  type.eatingSpots
+            ));
+        }
+
+        futureGroups = new ArrayList<>();
+        for (JsonValue futureGroupSaveData: levelSaveData.get("future-groups")) {
+            futureGroups.add(
+                  Group.loadGame(
+                        futureGroupSaveData,
+                        jsonProfiles,
+                        ingredientHashMap,
+                        this.type.spotHashMap,
+                        this.type.eatingSpots
+                  )
+            );
+        }
+
+        currentGroups = new ArrayList<>();
+        for (JsonValue futureGroupSaveData: levelSaveData.get("current-groups")) {
+            currentGroups.add(
+                  Group.loadGame(
+                        futureGroupSaveData,
+                        jsonProfiles,
+                        ingredientHashMap,
+                        this.type.spotHashMap,
+                        this.type.eatingSpots
+                  )
+            );
+        }
+
+
+
+
+    }
+
     public void update(float delta) {
         timeInDay += delta;
 
@@ -163,7 +238,7 @@ public class Level {
         for (Profile profile: profiles) {
             profilesSaveData.addChild(profile.saveGame());
         }
-        saveData.addChild("players", playersSaveData);
+        saveData.addChild("profiles", playersSaveData);
 
         JsonValue futureGroupsSaveData = new JsonValue(ValueType.array);
         for (Group group: futureGroups) {
@@ -179,9 +254,5 @@ public class Level {
 
         return saveData;
 
-    }
-
-    public static Level loadGame(JsonValue JsonSaveData) {
-        return null;
     }
 }

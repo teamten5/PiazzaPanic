@@ -4,8 +4,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.ValueType;
 import com.mygdx.game.Config;
+import com.mygdx.game.Ingredient;
 import com.mygdx.game.actors.controllers.Controller;
 import com.mygdx.game.actors.controllers.CustomerController;
+import java.util.HashMap;
 import java.util.List;
 
 public class Customer {
@@ -185,6 +187,36 @@ public class Customer {
         saveData.addChild("place-in-queue", new JsonValue(placeInQueue));
 
         return saveData;
+    }
+
+    public static Customer loadGame(
+          JsonValue customerSaveData,
+          Group group,
+          JsonValue jsonProfiles,
+          HashMap<String, Ingredient> ingredientHashMap,
+          HashMap<String, Spot> spotHashMap,
+          List<Spot> eatingSpots
+    ) {
+        Customer customer = new Customer(
+              Profile.loadOneFromJson(
+                    jsonProfiles,
+                    customerSaveData.get("profile"),
+                    ingredientHashMap,
+                    spotHashMap,
+                    eatingSpots
+              ),
+              group
+        );
+
+        customer.posX = customerSaveData.getFloat("x");
+        customer.posY = customerSaveData.getFloat("y");
+        customer.setSpot(spotHashMap.get(customerSaveData.getString("spot")));  // TODO ?
+        customer.currentOrder = customerSaveData.getInt("current-order");
+        customer.progress = customerSaveData.getFloat("progress");
+        customer.state = State.valueOf(customerSaveData.getString("state"));
+        customer.placeInQueue = customerSaveData.getInt("place-in-queue");
+
+        return customer;
     }
 
 }

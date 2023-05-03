@@ -6,7 +6,6 @@ import com.mygdx.game.actors.controllers.Controller;
 import com.mygdx.game.levels.Level;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class PlayerType {
     final Texture texture;
@@ -36,13 +35,13 @@ public class PlayerType {
         );
     }
 
-    public static List<PlayerType> loadFromJson(
+    public static HashMap<String, PlayerType> loadFromJson(
           JsonValue jsonChefs,
           HashMap<String, Spot> spotHashMap
           ) {
-        ArrayList<PlayerType> chefs = new ArrayList<>();
+        HashMap<String, PlayerType> chefs = new HashMap<>();
         for (JsonValue jsonChef: jsonChefs) {
-            chefs.add(new PlayerType(
+            chefs.put(jsonChef.name, new PlayerType(
                   new Texture("textures/" + jsonChef.getString("texture")),
                   spotHashMap.get(jsonChef.getString("spawn")),
                   jsonChef.name));

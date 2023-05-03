@@ -13,8 +13,16 @@ buildscript {
     }
 }
 
+plugins {
+    id 'java-library'
+    id 'jacoco'
+    id 'checkstyle'
+}
+
 allprojects {
     apply plugin: "eclipse"
+    
+    apply plugin: "jacoco"
 
     version = '1.0'
     ext {
@@ -40,6 +48,8 @@ allprojects {
 
 project(":desktop") {
     apply plugin: "java-library"
+    
+    apply plugin: "jacoco"
 
 
     dependencies {
@@ -52,6 +62,8 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java-library"
+    
+    apply plugin: "jacoco"
 
 
     dependencies {
@@ -65,6 +77,13 @@ project(":core") {
         useJUnitPlatform()
         testLogging {
             events "passed", "skipped", "failed"
+        }
+        jacocoTestReport {
+            reports {
+                xml.required = false
+                csv.required = false
+                html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+            }
         }
     }
 }

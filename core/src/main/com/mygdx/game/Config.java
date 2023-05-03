@@ -28,7 +28,8 @@ public class Config {
     public static float volumeMusic = 1;
     public static float volumeEffects = 1;
 
-    // keybinds
+    // Keybinds
+
     public static int KBUp = Keys.W;
     public static int KBDown = Keys.S;
     public static int KBLeft = Keys.A;
@@ -38,9 +39,9 @@ public class Config {
     public static int KBDoCombination = Keys.SHIFT_LEFT;
     public static int KBSwapChefs = Keys.TAB;
 
-    public static int scaling = 4;
-    public static int fpsLimit = 60;
-    public static int resolutionHeight = 480;
+    public static int scaling = 3;
+    public static int fpsLimit = 60; // try
+    public static int resolutionHeight = 480; //resolution
     public static int resolutionWidth = 640;
     private Config() {}
 

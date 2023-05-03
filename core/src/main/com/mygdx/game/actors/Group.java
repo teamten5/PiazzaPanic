@@ -1,10 +1,13 @@
 package com.mygdx.game.actors;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonValue.ValueType;
+import com.mygdx.game.Ingredient;
 import com.mygdx.game.actors.Customer.State;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Group {
@@ -13,6 +16,7 @@ public class Group {
     boolean active = true;
 
     public Group(List<Profile> memberProfiles) {
+        this();
         for (Profile memberProfile: memberProfiles) {
             members.add(new Customer(
                   memberProfile,
@@ -20,6 +24,8 @@ public class Group {
             ));
         }
     }
+
+    private Group() {}
 
     public void update(float delta) {
         if (active) {
@@ -73,5 +79,29 @@ public class Group {
 
 
         return saveData;
+    }
+    public static Group loadGame(
+          JsonValue groupSaveData,
+          JsonValue jsonProfiles,
+          HashMap<String, Ingredient> ingredientHashMap,
+          HashMap<String, Spot> spotHashMap,
+          List<Spot> eatingSpots
+    ) {
+        Group group = new Group();
+
+        group.active = groupSaveData.getBoolean("active");
+
+        for (JsonValue memberSaveData: groupSaveData) {
+            group.members.add(Customer.loadGame(
+                  memberSaveData,
+                  group,
+                  jsonProfiles,
+                  ingredientHashMap,
+                  spotHashMap,
+                  eatingSpots
+            ));
+        }
+
+        return group;
     }
 }

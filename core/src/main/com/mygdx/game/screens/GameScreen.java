@@ -1,6 +1,7 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -23,16 +24,13 @@ import com.mygdx.game.levels.Level;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * 
- * @author Thomas McCarthy
- * 
- * The GameScreen class handles the main rendering and updating of the game.
- *
- */
+
+
 
 public class GameScreen extends InputAdapter implements Screen {
-
+	private PiazzaPanic game;
+	private boolean paused = false;
+	private PauseScreen pauseScreen;
 	private final PolygonSpriteBatch batch;
 	private final ShapeRenderer shapeRenderer;
 	OrthographicCamera camera;
@@ -44,12 +42,12 @@ public class GameScreen extends InputAdapter implements Screen {
 	private Level currentLevel;
 
 	public GameScreen(
-		PiazzaPanic main,
-		HashMap<String, Ingredient> ingredientHashMap,
-		HashMap<String, InteractableType> interactableTypeHashMap,
-		HashMap<InteractableType, ArrayList<Combination>> combinationsHashmap,
-		HashMap<InteractableType, HashMap<Ingredient, Action>> actionHashmap,
-		Level level
+			PiazzaPanic main,
+			HashMap<String, Ingredient> ingredientHashMap,
+			HashMap<String, InteractableType> interactableTypeHashMap,
+			HashMap<InteractableType, ArrayList<Combination>> combinationsHashmap,
+			HashMap<InteractableType, HashMap<Ingredient, Action>> actionHashmap,
+			Level level
 	) {
 		this.currentLevel = level;
 		this.main = main;
@@ -57,12 +55,12 @@ public class GameScreen extends InputAdapter implements Screen {
 		// Set up camera
 		camera = new OrthographicCamera();
 		viewport = new GameViewport(
-			15,
-			15,
-			camera,
-			Config.unitWidthInPixels,
-			Config.unitHeightInPixels,
-			Config.scaling
+				15,
+				15,
+				camera,
+				Config.unitWidthInPixels,
+				Config.unitHeightInPixels,
+				Config.scaling
 		);
 
 		// Create processor to handle user input
@@ -71,16 +69,19 @@ public class GameScreen extends InputAdapter implements Screen {
 		shapeRenderer = new ShapeRenderer();
 	}
 
-	
+
 	//==========================================================\\
 	//                         START                            \\
 	//==========================================================\\
 	@Override
 	public void show() {
+		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+			game.setScreen(new PauseScreen(game.getGame()));
+		}
 
 	}
 
-	
+
 	//==========================================================\\
 	//                        UPDATE                            \\
 	//==========================================================\\
@@ -90,11 +91,9 @@ public class GameScreen extends InputAdapter implements Screen {
 		currentLevel.update(delta);
 
 
-
 		// Clear the screen and begin drawing process
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-
 
 
 		batch.begin();
@@ -108,9 +107,14 @@ public class GameScreen extends InputAdapter implements Screen {
 		shapeRenderer.begin(ShapeType.Line);
 		currentLevel.renderShapes(shapeRenderer);
 		shapeRenderer.end();
+
+		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+			togglePause();
+
+		}
 	}
-	
-	
+
+
 	//==========================================================\\
 	//                 OTHER REQUIRED METHODS                   \\
 	//==========================================================\\
@@ -122,15 +126,32 @@ public class GameScreen extends InputAdapter implements Screen {
 	}
 
 	@Override
-	public void pause() {}
+	public void pause() {
+	}
 
 	@Override
-	public void resume() {}
+	public void resume() {
+	}
 
 	@Override
-	public void hide() {}
+	public void hide() {
+	}
 
 	@Override
-	public void dispose() {}
+	public void dispose() {
+	}
+
+	void togglePause() {
+		paused = !paused;
+		if (paused) {
+			// Pause game logic or animation here
+			System.out.println("PAuse");
+			pauseScreen = new PauseScreen(this.main);
+			this.main.setScreen(pauseScreen);
+		} else {
+			// Resume game logic or animation here
+			this.main.setScreen(this);
+		}
+	}
 
 }
