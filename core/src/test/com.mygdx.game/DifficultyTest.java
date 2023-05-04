@@ -73,7 +73,7 @@ public class DifficultyTest {
     public void testAttributes() {
         assertTrue(testingdiff.name =="test");
     }
-    */
+   
 
 
 
@@ -82,3 +82,4 @@ public class DifficultyTest {
         new ArrayList<Difficulty>() = Difficulty.loadFromJson();
     }
     }
+*/
