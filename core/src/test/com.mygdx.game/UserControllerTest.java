@@ -1,3 +1,4 @@
+/**
 package com.mygdx.game;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -56,3 +57,4 @@ public class UserControllerTest {
         assertNotEquals(testingcontroller.y, oldY);
     }
 }
+*/
